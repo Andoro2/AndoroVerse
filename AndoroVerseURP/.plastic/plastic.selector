@@ -1,0 +1,3 @@
+rep "AndoroVerseURP@Tredecim@cloud"
+  path "/"
+    smartbranch "/main"
