@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7926820415637229565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6681416764284572204}
+  - component: {fileID: 5667370573684006318}
+  m_Layer: 0
+  m_Name: Spawner_AndroSphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6681416764284572204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7926820415637229565}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -210.16, y: 2, z: 164.68}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5667370573684006318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7926820415637229565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7116fd689554244a211e8a41afff07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyToSpawn: {fileID: 4257918025978156136, guid: 030d4b70f3134de46b11cebbc4461e2f,
+    type: 3}
+  m_Cylinder: {fileID: 1250866263852286602, guid: edff95d5a4aee2a43bf067cd33070bcd,
+    type: 3}
+  m_Materialize: {fileID: 4790645236857992609, guid: 484d2cd1246a20146a6267003f14912f,
+    type: 3}
+  m_VFXTime: 3
