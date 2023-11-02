@@ -1,0 +1,376 @@
+fileFormatVersion: 2
+guid: ee9c4f7d6d632a7449d69f21495b89dd
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_ARTICULACIONES_BaseColor.1001
+    second: {fileID: 2800000, guid: 02247c64040271a40a285ac7b4291665, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_ARTICULACIONES_Metallic.1001
+    second: {fileID: 2800000, guid: 35fff1c1c51de5246af9d893c9514791, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_ARTICULACIONES_Normal.1001
+    second: {fileID: 2800000, guid: 8c9021fca834a4748b4fe27e6a5299ba, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_ARTICULACIONES_Roughness.1001
+    second: {fileID: 2800000, guid: 3e75a389fb1fd3646bc68a48c2a36822, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_BLANCO OJO.001_BaseColor.1001
+    second: {fileID: 2800000, guid: 19b7da1a43cf0354e813bd4272bd3d71, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_BLANCO OJO.001_Metallic.1001
+    second: {fileID: 2800000, guid: 2b107b2935b0ff3408b4c3d0f5e6b3c8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_BLANCO OJO.001_Normal.1001
+    second: {fileID: 2800000, guid: 14ccb306f68109f488eb3f400f99432c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_BLANCO OJO.001_Roughness.1001
+    second: {fileID: 2800000, guid: 7a75e2b2417b3a747a5d6c7e3a5c0b74, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_NEGRO OJO.001_BaseColor.1001
+    second: {fileID: 2800000, guid: e9c4a7dadafb2604488694328fc73b9e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_NEGRO OJO.001_Metallic.1001
+    second: {fileID: 2800000, guid: b48813b9d27bb3f44b8ec51c02cdfa1f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_NEGRO OJO.001_Normal.1001
+    second: {fileID: 2800000, guid: daa50e4a81b14534c81fc10bbd19674e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_NEGRO OJO.001_Roughness.1001
+    second: {fileID: 2800000, guid: 2395d3cb5455c9644874bffd8d51d281, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_azul_BaseColor.1001
+    second: {fileID: 2800000, guid: 708758862cc14834383eb6886fc08f38, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_azul_Metallic.1001
+    second: {fileID: 2800000, guid: 0d5ab34344512e14587eb3a38101f93b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_azul_Normal.1001
+    second: {fileID: 2800000, guid: 40da53c3686774c41b83560cfd311b28, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_azul_Roughness.1001
+    second: {fileID: 2800000, guid: 7f522920d3f0f0643a0d56cbc1144f52, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco cara_BaseColor.1001
+    second: {fileID: 2800000, guid: e2f6351c7fb153548ad4fe9c5c4f2079, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco cara_Metallic.1001
+    second: {fileID: 2800000, guid: d13f760f3aed4e74a8914af2edca6a6d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco cara_Normal.1001
+    second: {fileID: 2800000, guid: 0c953380da0cc9e41808ef1294cc32b3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco cara_Roughness.1001
+    second: {fileID: 2800000, guid: 353d14b5ce99f61479ab6e3f0a24ac53, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco cuerpo_BaseColor.1001
+    second: {fileID: 2800000, guid: a8529229e567d6b4d9e27c4ed5a0056a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco cuerpo_Metallic.1001
+    second: {fileID: 2800000, guid: 8d3af1d2dbff950478dab7905150690c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco cuerpo_Normal.1001
+    second: {fileID: 2800000, guid: 333d00bf693895c42a6df9f31a26d9b7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco cuerpo_Roughness.1001
+    second: {fileID: 2800000, guid: 69b5288546b188d47990f6922e4a05bd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco logo_BaseColor.1001
+    second: {fileID: 2800000, guid: 227b3cdf506beb34dba27523801e09f2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco logo_Metallic.1001
+    second: {fileID: 2800000, guid: 374bc810355e3584ea4402bbbf2da286, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco logo_Normal.1001
+    second: {fileID: 2800000, guid: 58724b5209b0d904fa828cadeda3c05b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco logo_Roughness.1001
+    second: {fileID: 2800000, guid: 9d0b49dad4d7d0d42a6588b2e2bb1654, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco mano_BaseColor.1001
+    second: {fileID: 2800000, guid: a277af50639fd4a49b1213e4fb82d5bf, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco mano_Metallic.1001
+    second: {fileID: 2800000, guid: 2034ea3a402fd164c98e6a8939e4f3a8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco mano_Normal.1001
+    second: {fileID: 2800000, guid: 5fec1b7f5dffef64eae94031452887d6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_blanco mano_Roughness.1001
+    second: {fileID: 2800000, guid: 68361849067859b4f9a2a2fb70536ab5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_pelo_BaseColor.1001
+    second: {fileID: 2800000, guid: 53ddb64cbe7c1a541b4f9c0b3575d40e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_pelo_Metallic.1001
+    second: {fileID: 2800000, guid: 520c3771849205e4ca4e5026c1a1f957, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_pelo_Normal.1001
+    second: {fileID: 2800000, guid: 54d6aea5e93ba374299bf3a16a80fc40, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: andoroide_pelo_Roughness.1001
+    second: {fileID: 2800000, guid: 17b9f7f29dbd0b04aadb0e42eca2190b, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Running
+      takeName: Running
+      internalID: -9121621101649706817
+      firstFrame: 0
+      lastFrame: 22
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walking
+      takeName: Walking
+      internalID: -1610863427237328480
+      firstFrame: 0
+      lastFrame: 28
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle
+      takeName: Idle
+      internalID: -3100369314251171874
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
