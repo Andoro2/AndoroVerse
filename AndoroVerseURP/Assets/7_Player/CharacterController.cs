@@ -693,17 +693,20 @@ public class CharacterController : MonoBehaviour
     }
     private bool CheckWeapon(string WeaponName)
     {
-        bool HasWeapon = false;
-        for (int i = 0; i < m_Inventario.m_Items.Count; i++)
+        bool HasSkill = false;
+        for (int i = 0; i < m_Inventario.m_Skills.Count; i++)
         {
-            HasWeapon = (m_Inventario.m_Items[i].ObjectName == WeaponName);
-            if (HasWeapon)
+            if(m_Inventario.m_Skills[i].SkillName == WeaponName)
+            {
+                HasSkill = m_Inventario.m_Skills[i].Available;
+            }
+            if (HasSkill)
             {
                 break;
             }
         }
 
-        if (HasWeapon)
+        if (HasSkill)
         {
             return true;
         }
@@ -714,51 +717,66 @@ public class CharacterController : MonoBehaviour
     }
     private void Jump()
     {
-        if (m_IsGrounded)
+        bool JumpAvailable = false;
+        for (int i = 0; i < m_Inventario.m_Skills.Count; i++)
         {
-            m_CoyoteTimeCounter = m_CoyoteTime;
-        }
-        else
-        {
-            m_CoyoteTimeCounter -= Time.deltaTime;
-        }
-
-        if (m_CoyoteTimeCounter > 0f && playerInputActions.Movement.Jump.triggered)
-        {
-            m_AnimatorController.SetTrigger("Jump");
-            m_AnimatorController.SetBool("Grounded", false);
-            m_VerticalVelocity = Vector3.up * m_JumpForce;
-            m_IsJumping = true;
-            m_AirTimeCounter = m_JumpTime;
-        }
-
-        if (playerInputActions.Movement.Jump.ReadValue<float>() != 0 && m_Controller.velocity.y > 0f)
-        {
-            m_AnimatorController.SetBool("Grounded", false);
-            if (m_AirTimeCounter > 0 && m_IsJumping)
+            if (m_Inventario.m_Skills[i].SkillName == "Jump")
             {
-                m_VerticalVelocity = Vector3.up * m_JumpForce;
-                m_AirTimeCounter -= Time.deltaTime;
+                if (JumpAvailable = m_Inventario.m_Skills[i].Available)
+                {
+                    break;
+                }
+            }
+        }
+        if (JumpAvailable)
+        {
+            if (m_IsGrounded)
+            {
+                m_CoyoteTimeCounter = m_CoyoteTime;
             }
             else
+            {
+                m_CoyoteTimeCounter -= Time.deltaTime;
+            }
+
+            if (m_CoyoteTimeCounter > 0f && playerInputActions.Movement.Jump.triggered)
+            {
+                m_AnimatorController.SetTrigger("Jump");
+                m_AnimatorController.SetBool("Grounded", false);
+                m_VerticalVelocity = Vector3.up * m_JumpForce;
+                m_IsJumping = true;
+                m_AirTimeCounter = m_JumpTime;
+            }
+
+            if (playerInputActions.Movement.Jump.ReadValue<float>() != 0 && m_Controller.velocity.y > 0f)
+            {
+                m_AnimatorController.SetBool("Grounded", false);
+                if (m_AirTimeCounter > 0 && m_IsJumping)
+                {
+                    m_VerticalVelocity = Vector3.up * m_JumpForce;
+                    m_AirTimeCounter -= Time.deltaTime;
+                }
+                else
+                {
+                    if (m_IsJumping)
+                    {
+                        m_IsJumping = false;
+                        m_VerticalVelocity.y = 0f;
+                    }
+                }
+            }
+
+            if (playerInputActions.Movement.Jump.ReadValue<float>() == 0)
             {
                 if (m_IsJumping)
                 {
                     m_IsJumping = false;
                     m_VerticalVelocity.y = 0f;
                 }
+                m_CoyoteTimeCounter = 0f;
             }
         }
-
-        if (playerInputActions.Movement.Jump.ReadValue<float>() == 0)
-        {
-            if (m_IsJumping)
-            {
-                m_IsJumping = false;
-                m_VerticalVelocity.y = 0f;
-            }
-            m_CoyoteTimeCounter = 0f;
-        }
+        
     }
     private void Move()
     {
@@ -838,7 +856,18 @@ public class CharacterController : MonoBehaviour
     }
     private void Dash()
     {
-        if (!m_IsDashing && m_DashCooldownTimer <= 0f)
+        bool DashAvailable = false;
+        for (int i = 0; i < m_Inventario.m_Skills.Count; i++)
+        {
+            if (m_Inventario.m_Skills[i].SkillName == "Dash")
+            {
+                if (DashAvailable = m_Inventario.m_Skills[i].Available)
+                {
+                    break;
+                }
+            }
+        }
+        if (!m_IsDashing && m_DashCooldownTimer <= 0f && DashAvailable)
         {
             if (moveInput.magnitude > 0.1f && playerInputActions.Movement.Dash.triggered)
             {

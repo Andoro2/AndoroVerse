@@ -9,10 +9,36 @@ public class Item
     public int Quantity;
     public bool UniqueObject;
 }
+[System.Serializable]
+public class Skill
+{
+    public string SkillName;
+    public bool Available = false;
+}
 public class Inventory : MonoBehaviour
 {
+    public List<Skill> m_Skills = new List<Skill>();
     public List<Item> m_Items = new List<Item>();
-
+    public void ActivateSkill(Skill Ability)
+    {
+        for (int i = 0; i < m_Skills.Count; i++)
+        {
+            if (m_Skills[i].SkillName == Ability.SkillName)
+            {
+                m_Skills[i].Available = true;
+            }
+        }
+    }
+    public void DeactivateSkill(Skill Ability)
+    {
+        for (int i = 0; i < m_Skills.Count; i++)
+        {
+            if (m_Skills[i].SkillName == Ability.SkillName)
+            {
+                m_Skills[i].Available = false;
+            }
+        }
+    }
     public void AddItem(Item Object)
     {
         m_Items.Add(Object);
