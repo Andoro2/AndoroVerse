@@ -1,0 +1,215 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1801015243564002304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2595748007136383478}
+  - component: {fileID: 8504415843213351528}
+  - component: {fileID: 7649436706019917425}
+  - component: {fileID: 6101900624467887195}
+  - component: {fileID: 8647298398077545147}
+  - component: {fileID: 2806654050846495351}
+  m_Layer: 0
+  m_Name: ManagerGameObject
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2595748007136383478
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801015243564002304}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8504415843213351528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801015243564002304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6326c4bc1c1f0e64e813b6f71d2c64bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameState: 0
+  m_PlayerMeleDamage: 8
+  m_PlayerFireDamage: 3
+  m_PlayerShockDamage: 5
+  m_PlayerKBForce: 10
+  m_HealthSlider: {fileID: 0}
+  m_HeathBarGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 1, g: 1, b: 0, a: 1}
+    key2: {r: 0, g: 1, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 9830
+    ctime1: 32768
+    ctime2: 65535
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 3
+    m_NumAlphaKeys: 2
+  m_FillLifeBar: {fileID: 0}
+  m_ControlPoint: {fileID: 0}
+--- !u!114 &7649436706019917425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801015243564002304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2477f6c33f8b7745825bc3ab31071c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CheckPointIndex: 0
+  m_ActiveMission:
+    m_MissionName: 
+    m_MissionObjective: 
+    m_MissionDescription: 
+  m_MissionIndex: 0
+  m_Missions:
+  - m_MissionName: Desastre en el laboratorio
+    m_MissionObjective: "Busca informaci\xF3n de lo sucedido."
+    m_MissionDescription: "Acabas de volver de tus vacaciones y el laboratorio esta
+      hecho un desastre. Tu compa\xF1ero de trabajo, Salinas, no parece estar por
+      la zona. Quiz\xE1s las c\xE1maras de seguridad hayan grabado lo sucedido."
+  - m_MissionName: Portal interdimensional
+    m_MissionObjective: Investiga el portal.
+    m_MissionDescription: "Tu compa\xF1ero Salinas ha sido secuestrado por una versi\xF3n
+      malvada de otra dimensi\xF3n. Para poder rescatarlo, lo primero es reparar
+      el portal y poder acceder a la dimensi\xF3n a la que se lo han llevado."
+  - m_MissionName: El mago interdimensional
+    m_MissionObjective: "Sigue a tu versi\xF3n de otra dimensi\xF3n."
+    m_MissionDescription: "Has conocido a una versi\xF3n de ti mismo de otra dimensi\xF3n
+      y te ha revelado la existencia de una guerra interdimensional. Para salvar
+      a SALINAS, debes tomar cartas en el asunto y salvar el multiverso."
+  - m_MissionName: El tercer Andoro
+    m_MissionObjective: Encuentra al tercer Andoro.
+    m_MissionDescription: "Andoro Hechicero te ha encargado encontrar y convencer
+      a un tercer Andoropara que se una a la causa contra Andoro Creates SA. Viaja
+      a una nueva dimensi\xF3n y vuelve con un nuevo Andoro en el equipo."
+  - m_MissionName: "El Capit\xE1n Andoro"
+    m_MissionObjective: "S\xEDguete."
+    m_MissionDescription: "Te has encontrado con la versi\xF3n de ti mismo de esta
+      dimensi\xF3n a la que Andoro Hechicero te ha pedido que convenzas. De momento
+      te ha ordenado que lo sigas, y teniendo en cuenta la situaci\xF3n, parece lo
+      m\xE1s razonable."
+  - m_MissionName: De vuelta al Limbo
+    m_MissionObjective: Vuelve al portal.
+    m_MissionDescription: "El Capit\xE1n Andoro ha accedido a ayudar a la causa tras
+      saber que Salinas ha sido secuestrado. Ll\xE9valo de vuelta al portal para
+      regresar al Limbo."
+  - m_MissionName: El plan del mago
+    m_MissionObjective: Sigue a Andoro Hechicero hasta la casa.
+    m_MissionDescription: 'Ahora, con tres Andoro en el Limbo, el Andoro Hechicero
+      parece tener un plan con el que iniciar la guerra contra el Evildoro
+
+'
+  - m_MissionName: Rescatando un cyborg
+    m_MissionObjective: "Encuentra a tu versi\xF3n rob\xF3tica."
+    m_MissionDescription: "La primera parte del plan de Andoro Hechicero es rescatar
+      y reclutar al Andoro encargado de dise\xF1ar los robots del ej\xE9rcito de
+      Evildoro, que esta cautivo en uno de los almacenes de su dimensi\xF3n."
+  - m_MissionName: Regresando al Limbo
+    m_MissionObjective: Vuelve al Limbo.
+    m_MissionDescription: "Has encontrado y rescatado a Androide Prime. Abre la puerta
+      principal del almac\xE9n y vuelve al Limbo."
+--- !u!114 &6101900624467887195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801015243564002304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18dc15370dee8604da2e7fc4f9506f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Skills:
+  - SkillName: Jump
+    Available: 0
+  - SkillName: DoubleJump
+    Available: 0
+  - SkillName: Dash
+    Available: 0
+  - SkillName: Scepter
+    Available: 0
+  - SkillName: Sword
+    Available: 0
+  - SkillName: GroundSlash
+    Available: 0
+  - SkillName: Shields
+    Available: 0
+  - SkillName: RockPunch
+    Available: 0
+  m_Items:
+  - ObjectName: Llave del Ojete de MamaYuela
+    Quantity: 1
+    UniqueObject: 1
+--- !u!114 &8647298398077545147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801015243564002304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f4c0c028f96f749b414c8892e084c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Collectibles:
+  - Name: HollowKnight
+    Obtained: 0
+  - Name: CrunchyBook
+    Obtained: 0
+--- !u!114 &2806654050846495351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801015243564002304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e988d3495ac8843ab41af57e3a57e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
