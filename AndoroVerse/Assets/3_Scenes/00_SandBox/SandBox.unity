@@ -6051,7 +6051,7 @@ PrefabInstance:
     - target: {fileID: 516788398475867993, guid: 1d3ca64a4bebacf4a9b342384ebd47a8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -97.2
+      value: -74.92
       objectReference: {fileID: 0}
     - target: {fileID: 516788398475867993, guid: 1d3ca64a4bebacf4a9b342384ebd47a8,
         type: 3}
@@ -6061,7 +6061,7 @@ PrefabInstance:
     - target: {fileID: 516788398475867993, guid: 1d3ca64a4bebacf4a9b342384ebd47a8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -58.1
+      value: -81.49
       objectReference: {fileID: 0}
     - target: {fileID: 516788398475867993, guid: 1d3ca64a4bebacf4a9b342384ebd47a8,
         type: 3}
@@ -6098,11 +6098,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3053096971644069395, guid: 1d3ca64a4bebacf4a9b342384ebd47a8,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5527503905535313643, guid: 1d3ca64a4bebacf4a9b342384ebd47a8,
         type: 3}
       propertyPath: m_Name
@@ -6110,24 +6105,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6445270224662726723, guid: 1d3ca64a4bebacf4a9b342384ebd47a8,
         type: 3}
-      propertyPath: m_DashSFX
-      value: 
-      objectReference: {fileID: 8300000, guid: 44f718b0edcb12a4a9b11da164653dfb, type: 3}
-    - target: {fileID: 6445270224662726723, guid: 1d3ca64a4bebacf4a9b342384ebd47a8,
-        type: 3}
       propertyPath: m_ActiveWeaponSprite
       value: 
       objectReference: {fileID: 978749222}
-    - target: {fileID: 7723518367031269958, guid: 1d3ca64a4bebacf4a9b342384ebd47a8,
-        type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 98488b33f7b72d241a6266c83d3ead8d, type: 3}
-    - target: {fileID: 7904316149327362422, guid: 1d3ca64a4bebacf4a9b342384ebd47a8,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

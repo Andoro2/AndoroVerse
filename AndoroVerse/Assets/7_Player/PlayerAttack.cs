@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public float HitDmg;
     public GameObject m_HitVFX;
     private AudioSource m_AS;
     public AudioClip m_AttackAudio;

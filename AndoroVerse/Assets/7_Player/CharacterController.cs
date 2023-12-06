@@ -145,6 +145,8 @@ public class CharacterController : MonoBehaviour
         m_MovementAS = transform.Find("DashTarget").Find("AS_Movement").GetComponent<AudioSource>();
         m_MeleAttackAS = transform.Find("Body").Find("Weapons").Find("WeaponAudioSources").Find("AS_MeleeAttack").GetComponent<AudioSource>();
         m_ScepterAS = transform.Find("Body").Find("Weapons").Find("WeaponAudioSources").Find("AS_FlameThrower").GetComponent<AudioSource>();
+
+        m_ShootTimer = m_ShootCooldown;
     }
 
     private void Update()
@@ -442,12 +444,8 @@ public class CharacterController : MonoBehaviour
 
         if (playerInputActions.Actions.QuickAttack.triggered && CanAttack)
         {
-            if(ActiveWeapon != Weapons.Scepter)
+            if(ActiveWeapon != Weapons.Scepter && ActiveWeapon != Weapons.Weaponless)
             {
-                /*int si_o_no = Random.Range(0, 1);
-                if (si_o_no == 0) m_MeleAttackAS.clip = m_SwordSwoosh1;
-                else m_MeleAttackAS.clip = m_SwordSwoosh1;*/
-
                 m_MeleAttackAS.Play();
             }
 
@@ -463,8 +461,12 @@ public class CharacterController : MonoBehaviour
                     {
                         StartCoroutine("SlashVFX", m_SlashVFXs[0]);
                     }
+                    else if (ActiveWeapon == Weapons.Shields)
+                    {
+                        StartCoroutine("PunchHitBox", this.gameObject.transform.Find("Body").Find("Shields").gameObject);
+                    }
 
-                    if(m_AnimatorController.GetBool("Fighting") && m_AnimatorController.GetBool("Sword"))
+                    if (m_AnimatorController.GetBool("Fighting") && m_AnimatorController.GetBool("Sword"))
                     {
                         StartCoroutine("DrawSword", 0.3f);
                     }
@@ -490,6 +492,10 @@ public class CharacterController : MonoBehaviour
                     {
                         StartCoroutine("SlashVFX", m_SlashVFXs[1]);
                     }
+                    else if(ActiveWeapon == Weapons.Shields)
+                    {
+                        StartCoroutine("PunchHitBox", this.gameObject.transform.Find("Body").Find("Shields").gameObject);
+                    }
 
                     break;
                 case 2:
@@ -500,6 +506,10 @@ public class CharacterController : MonoBehaviour
                     if (ActiveWeapon == Weapons.Sword)
                     {
                         StartCoroutine("SlashVFX", m_SlashVFXs[2]);
+                    }
+                    else if (ActiveWeapon == Weapons.Shields)
+                    {
+                        StartCoroutine("PunchHitBox", this.gameObject.transform.Find("Body").Find("Shields").gameObject);
                     }
 
                     break;
@@ -528,25 +538,39 @@ public class CharacterController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         m_SlashVFX.SlashVFX.SetActive(false);
     }
+    IEnumerator PunchHitBox(GameObject PunchCollider)
+    {
+        yield return new WaitForSeconds(0.2f);
+        PunchCollider.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
+        PunchCollider.SetActive(false);
+    }
+    private float m_ShootTimer = 0f;
+    public float m_ShootCooldown = 2.5f;
     private void Shoot()
     {
-        if (moveInput.magnitude > 0.1f && playerInputActions.Actions.HeavyAttack.triggered)
+        if(m_ShootTimer > 0f)
         {
-            Instantiate(bullet, m_Target.position, transform.rotation);
-            m_AnimatorController.SetTrigger("Range");
-            m_AnimatorController.SetBool("Fighting", true);
-            m_FightingCounter = m_FightingCoolDown;
+            m_ShootTimer -= Time.deltaTime;
         }
-        else if (moveInput.magnitude < 0.1f && playerInputActions.Actions.HeavyAttack.triggered)
+        if (moveInput.magnitude > 0.1f && playerInputActions.Actions.HeavyAttack.triggered && m_ShootTimer <= 0f)
         {
-            //Vector3 targetDir = target.position - transform.position;
-
-            //Vector3 bulletDir = new Vector3(targetDir.x, 0f, targetDir.z);
-
             Instantiate(bullet, m_Target.position, transform.rotation);
             m_AnimatorController.SetTrigger("Range");
             m_AnimatorController.SetBool("Fighting", true);
             m_FightingCounter = m_FightingCoolDown;
+
+            m_ShootTimer = m_ShootCooldown;
+        }
+        else if (moveInput.magnitude < 0.1f && playerInputActions.Actions.HeavyAttack.triggered && m_ShootTimer <= 0f)
+        {
+            Instantiate(bullet, m_Target.position, transform.rotation);
+            m_AnimatorController.SetTrigger("Range");
+            m_AnimatorController.SetBool("Fighting", true);
+            m_FightingCounter = m_FightingCoolDown;
+
+            m_ShootTimer = m_ShootCooldown;
         }
 
     }
