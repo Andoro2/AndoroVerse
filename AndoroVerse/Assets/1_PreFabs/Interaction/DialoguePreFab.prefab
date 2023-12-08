@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6926960620761903618}
   m_Layer: 5
   m_Name: DialogueCanvas
-  m_TagString: Untagged
+  m_TagString: TextBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -386,6 +386,7 @@ MonoBehaviour:
   m_TextDisplay: {fileID: 1071884343211873982}
   m_NameDisplay: {fileID: 3933141236634841580}
   m_DialogueMenu: {fileID: 877659328981798172}
+  m_Player: {fileID: 0}
   m_Speakers: []
 --- !u!65 &2045730951974602181
 BoxCollider:

@@ -5,12 +5,13 @@ using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 using UnityEngine.Audio;
 using TMPro;
+using System.Linq;
 
 public class CharacterController : MonoBehaviour
 {
     private UnityEngine.CharacterController m_Controller;
     private Inventory m_Inventario;
-    private enum CharStates { Moving, Interacting, Chaneling}
+    private enum CharStates { Moving, Interacting, Chaneling, Talking}
     [SerializeField] private CharStates CharState = CharStates.Moving;
     private enum Weapons { Weaponless, Scepter, Shields, Sword }
     [SerializeField] private Weapons ActiveWeapon = Weapons.Weaponless;
@@ -57,8 +58,8 @@ public class CharacterController : MonoBehaviour
     private float m_ComboTimer;
     public float m_GroundSlashCharge = 0f;
     public bool m_HeavyPressed = false;
-    [SerializeField] private int m_ComboCount = 0; 
-    public bool CanAttack = true;
+    [SerializeField] private int m_ComboCount = 0;
+    public bool CanAttack = false;
 
     //WEAPONS POSITIONING
     private GameObject m_ShieldRDrawn, m_ShieldRSaved, m_ShieldLDrawn,
@@ -151,9 +152,25 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
-
         m_Scepter.gameObject.transform.localScale = new Vector3(1, 1, 1);
         m_IsGrounded = Physics.CheckSphere(groundCheck.position, 0.25f, groundLayer);
+
+        GameObject[] m_Dialogues = GameObject.FindGameObjectsWithTag("TextBox");
+        if(m_Dialogues.Any(TextBox => TextBox.activeSelf))
+        {
+            GameObject ActiveTextBox = m_Dialogues.FirstOrDefault(TextBox => TextBox.activeSelf);
+
+            if (ActiveTextBox.transform.parent.GetComponent<Dialogue>().m_CanMove)
+            {
+                CharState = CharStates.Talking;
+                CanAttack = false;
+            }
+        }
+        else
+        {
+            CharState = CharStates.Moving;
+            CanAttack = true;
+        }
 
         if (m_IsGrounded) m_AnimatorController.SetBool("Grounded", true);
 
@@ -162,18 +179,24 @@ public class CharacterController : MonoBehaviour
             Interact();
         }
 
-        if(CharState == CharStates.Moving)
+        if (CharState == CharStates.Talking || CharState == CharStates.Interacting) CanAttack = false;
+        else CanAttack = true;
+
+        if (CharState == CharStates.Moving || CharState == CharStates.Talking)
         {
-            Move();
             Look();
             Dash();
             Jump();
 
-            FightingTimer();
-            SwitchWeapon();
-            Shoot();
-            QuickAttackCombo();
-            HeavyAttack();
+            if (CanAttack)
+            {
+                Move();
+                FightingTimer();
+                SwitchWeapon();
+                Shoot();
+                QuickAttackCombo();
+                HeavyAttack();
+            }
         }
 
         if (CharState == CharStates.Chaneling)
@@ -194,10 +217,12 @@ public class CharacterController : MonoBehaviour
                 if (!m_InteractObject.GetComponent<Dialogue>().m_CanMove)
                 {
                     CharState = CharStates.Interacting;
+                    CanAttack = false;
                 }
                 else
                 {
-                    CharState = CharStates.Moving;
+                    //CharState = CharStates.Talking;
+                    //CanAttack = true;
                     if (m_InteractObject.GetComponent<Dialogue>().m_Follow)
                     {
                         m_InteractObject.gameObject.transform.parent = gameObject.transform;
@@ -348,70 +373,73 @@ public class CharacterController : MonoBehaviour
     }
     private void HeavyAttack()
     {
-        GameObject ScepterHeavy = transform.Find("Body/Weapons/ScepterHeavyVFX").gameObject;
-
-        switch (ActiveWeapon)
+        if (CanAttack)
         {
-            case Weapons.Scepter:
-                if (playerInputActions.Actions.RangeAttack.ReadValue<float>() != 0f)
-                {
-                    if (ScepterHeavy.gameObject.activeSelf == false)
+            GameObject ScepterHeavy = transform.Find("Body/Weapons/ScepterHeavyVFX").gameObject;
+
+            switch (ActiveWeapon)
+            {
+                case Weapons.Scepter:
+                    if (playerInputActions.Actions.RangeAttack.ReadValue<float>() != 0f)
                     {
-                        ScepterHeavy.SetActive(true);
+                        if (ScepterHeavy.gameObject.activeSelf == false)
+                        {
+                            ScepterHeavy.SetActive(true);
+                        }
+
+                        CharState = CharStates.Chaneling;
+
+                        m_FightingCounter = m_FightingCoolDown;
+
+                        m_AnimatorController.SetBool("ScepterShotgun", true);
+
+                        StartCoroutine("AudioFire");
+                        m_ScepterAS.loop = true;
+                        if (!m_ScepterAS.isPlaying) m_ScepterAS.Play();
+
+                        //transform.Find("Body/Weapons/ScepterHeavyVFX/ScepterHeavyVFX").gameObject.SetActive(true);
                     }
-
-                    CharState = CharStates.Chaneling;
-
-                    m_FightingCounter = m_FightingCoolDown;
-
-                    m_AnimatorController.SetBool("ScepterShotgun", true);
-
-                    StartCoroutine("AudioFire");
-                    m_ScepterAS.loop = true;
-                    if(!m_ScepterAS.isPlaying) m_ScepterAS.Play();
-
-                    //transform.Find("Body/Weapons/ScepterHeavyVFX/ScepterHeavyVFX").gameObject.SetActive(true);
-                }
-                else m_ScepterAS.loop = false;
-                break;
-            case Weapons.Shields:
-                if (playerInputActions.Actions.RangeAttack.triggered && m_IsGrounded)
-                {
-                    GameObject RockPunchVFX = Instantiate(m_RockPunch, transform.position, transform.rotation);
-                    RockPunchVFX.transform.parent = null;
-                }
-                break;
-            case Weapons.Sword:
-                if(m_HeavyPressed && m_IsGrounded)
-                {
-                    CharState = CharStates.Chaneling;
-
-                    m_GroundSlashCharge += Time.deltaTime;
-
-                    m_AnimatorController.SetBool("SwordHeavyLoad", true);
-
-                    if (m_GroundSlashCharge >= 2f)
+                    else m_ScepterAS.loop = false;
+                    break;
+                case Weapons.Shields:
+                    if (playerInputActions.Actions.RangeAttack.triggered && m_IsGrounded)
                     {
-                        GameObject GroundSlashVFX = Instantiate(m_GroundSlash, transform.position, transform.rotation);
-                        GroundSlashVFX.transform.parent = null;
+                        GameObject RockPunchVFX = Instantiate(m_RockPunch, transform.position, transform.rotation);
+                        RockPunchVFX.transform.parent = null;
+                    }
+                    break;
+                case Weapons.Sword:
+                    if (m_HeavyPressed && m_IsGrounded)
+                    {
+                        CharState = CharStates.Chaneling;
 
-                        m_GroundSlashCharge = 0f;
-                        m_AnimatorController.SetTrigger("SwordHeavyShoot");
-                        m_HeavyPressed = false;
+                        m_GroundSlashCharge += Time.deltaTime;
 
+                        m_AnimatorController.SetBool("SwordHeavyLoad", true);
+
+                        if (m_GroundSlashCharge >= 2f)
+                        {
+                            GameObject GroundSlashVFX = Instantiate(m_GroundSlash, transform.position, transform.rotation);
+                            GroundSlashVFX.transform.parent = null;
+
+                            m_GroundSlashCharge = 0f;
+                            m_AnimatorController.SetTrigger("SwordHeavyShoot");
+                            m_HeavyPressed = false;
+
+                            m_AnimatorController.SetBool("SwordHeavyLoad", false);
+                        }
+                    }
+                    else
+                    {
                         m_AnimatorController.SetBool("SwordHeavyLoad", false);
                     }
-                }
-                else
-                {
-                    m_AnimatorController.SetBool("SwordHeavyLoad", false);
-                }
-                break;
+                    break;
+            }
         }
     }
     private void OnHeavyPerformed(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && CanAttack)
         {
             m_HeavyPressed = true;
         }
@@ -463,7 +491,7 @@ public class CharacterController : MonoBehaviour
                     }
                     else if (ActiveWeapon == Weapons.Shields)
                     {
-                        StartCoroutine("PunchHitBox", this.gameObject.transform.Find("Body").Find("Shields").gameObject);
+                        StartCoroutine("PunchHitBox", this.gameObject.transform.Find("Body").Find("Weapons").Find("Shields").gameObject);
                     }
 
                     if (m_AnimatorController.GetBool("Fighting") && m_AnimatorController.GetBool("Sword"))
@@ -494,7 +522,7 @@ public class CharacterController : MonoBehaviour
                     }
                     else if(ActiveWeapon == Weapons.Shields)
                     {
-                        StartCoroutine("PunchHitBox", this.gameObject.transform.Find("Body").Find("Shields").gameObject);
+                        StartCoroutine("PunchHitBox", this.gameObject.transform.Find("Body").Find("Weapons").Find("Shields").gameObject);
                     }
 
                     break;
@@ -509,7 +537,7 @@ public class CharacterController : MonoBehaviour
                     }
                     else if (ActiveWeapon == Weapons.Shields)
                     {
-                        StartCoroutine("PunchHitBox", this.gameObject.transform.Find("Body").Find("Shields").gameObject);
+                        StartCoroutine("PunchHitBox", this.gameObject.transform.Find("Body").Find("Weapons").Find("Shields").gameObject);
                     }
 
                     break;
@@ -554,7 +582,7 @@ public class CharacterController : MonoBehaviour
         {
             m_ShootTimer -= Time.deltaTime;
         }
-        if (moveInput.magnitude > 0.1f && playerInputActions.Actions.HeavyAttack.triggered && m_ShootTimer <= 0f)
+        if (moveInput.magnitude > 0.1f && playerInputActions.Actions.HeavyAttack.triggered && m_ShootTimer <= 0f && CanAttack)
         {
             Instantiate(bullet, m_Target.position, transform.rotation);
             m_AnimatorController.SetTrigger("Range");
@@ -563,7 +591,7 @@ public class CharacterController : MonoBehaviour
 
             m_ShootTimer = m_ShootCooldown;
         }
-        else if (moveInput.magnitude < 0.1f && playerInputActions.Actions.HeavyAttack.triggered && m_ShootTimer <= 0f)
+        else if (moveInput.magnitude < 0.1f && playerInputActions.Actions.HeavyAttack.triggered && m_ShootTimer <= 0f && CanAttack)
         {
             Instantiate(bullet, m_Target.position, transform.rotation);
             m_AnimatorController.SetTrigger("Range");
@@ -1191,4 +1219,14 @@ public class CharacterController : MonoBehaviour
             };
         }
     }
+    /*public void ToTalking()
+    {
+        CharState = CharStates.Talking;
+        CanAttack = false;
+    }
+    public void ToMoving()
+    {
+        CharState = CharStates.Moving;
+        CanAttack = true;
+    }*/
 }

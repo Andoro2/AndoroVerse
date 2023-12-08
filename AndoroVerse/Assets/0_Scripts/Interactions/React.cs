@@ -20,7 +20,7 @@ public class React : MonoBehaviour
 
     public TextMeshProUGUI m_TextDisplay;
 
-    public GameObject m_ReactionCanvas;
+    public GameObject m_ReactionCanvas, m_Player;
 
     public DialogueReact[] m_Speakers;
 
@@ -28,7 +28,8 @@ public class React : MonoBehaviour
 
     public void Start()
     {
-        m_AudioS = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+        m_Player = GameObject.FindGameObjectWithTag("Player").gameObject;
+        m_AudioS = m_Player.GetComponent<AudioSource>();
 
     }
     public void MainReact()
@@ -45,8 +46,9 @@ public class React : MonoBehaviour
         {
             m_TextDisplay.text = m_Speakers[i].SpeakerName + ": " + m_Speakers[i].Line;
             m_ReactionCanvas.SetActive(true);
+            //m_Player.transform.GetComponent<CharacterController>().ToTalking();
 
-            if(m_Speakers[i].Audio != null)
+            if (m_Speakers[i].Audio != null)
             {
                 m_AudioS.clip = m_Speakers[i].Audio;
                 m_AudioS.Play();
@@ -59,6 +61,7 @@ public class React : MonoBehaviour
             }
         }
         //m_ReactionCanvas.SetActive(false);
+        //m_Player.transform.GetComponent<CharacterController>().ToMoving();
         Destroy(gameObject);
     }
 }

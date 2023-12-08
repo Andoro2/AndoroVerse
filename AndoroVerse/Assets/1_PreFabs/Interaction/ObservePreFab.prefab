@@ -68,6 +68,7 @@ MonoBehaviour:
   m_DialogueOnce: 0
   m_ObserveCanvas: {fileID: 774368052444383260}
   m_DialogueCanvas: {fileID: 0}
+  m_Player: {fileID: 0}
   m_DescriptionDisplay: {fileID: 385856267994069213}
   m_DialogueDisplay: {fileID: 4828402699956342974}
   m_Description: 

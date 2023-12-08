@@ -19,7 +19,7 @@ public class Dialogue : MonoBehaviour
 
     public TextMeshProUGUI m_TextDisplay, m_NameDisplay;
 
-    public GameObject m_DialogueMenu;
+    public GameObject m_DialogueMenu, m_Player;
 
     public Speaker[] m_Speakers;
 
@@ -30,7 +30,8 @@ public class Dialogue : MonoBehaviour
 
     public void Start()
     {
-        m_AudioS = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+        m_Player = GameObject.FindGameObjectWithTag("Player").gameObject;
+        m_AudioS = m_Player.GetComponent<AudioSource>();
     }
 
     public void InteractionManager()
@@ -47,6 +48,7 @@ public class Dialogue : MonoBehaviour
     public void StartDialogue()
     {
         m_DialogueMenu.SetActive(true);
+        //m_Player.transform.GetComponent<CharacterController>().ToTalking();
         m_Index = 0;
         m_NameDisplay.text = m_Speakers[m_Index].SpeakerName;
         m_TextDisplay.text = "";
@@ -101,6 +103,7 @@ public class Dialogue : MonoBehaviour
                 m_TextDisplay.text = "";
 
                 m_DialogueMenu.SetActive(false);
+                //m_Player.transform.GetComponent<CharacterController>().ToMoving();
 
                 m_AudioS.Stop();
 
@@ -121,5 +124,6 @@ public class Dialogue : MonoBehaviour
         m_TextDisplay.text = "";
         m_AudioS.Stop();
         m_DialogueMenu.SetActive(false);
+        //m_Player.transform.GetComponent<CharacterController>().ToMoving();
     }
 }

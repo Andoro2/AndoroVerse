@@ -12,6 +12,7 @@ TagManager:
   - Terrain
   - UI
   - NPC
+  - TextBox
   layers:
   - Default
   - TransparentFX

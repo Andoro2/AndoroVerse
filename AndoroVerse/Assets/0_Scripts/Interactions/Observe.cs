@@ -17,7 +17,7 @@ public class Observe : MonoBehaviour
 
     private bool m_Interacted = false;
 
-    public GameObject m_ObserveCanvas, m_DialogueCanvas;
+    public GameObject m_ObserveCanvas, m_DialogueCanvas, m_Player;
 
     public TextMeshProUGUI m_DescriptionDisplay, m_DialogueDisplay;
 
@@ -30,7 +30,8 @@ public class Observe : MonoBehaviour
 
     public void Start()
     {
-        m_AudioS = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+        m_Player = GameObject.FindGameObjectWithTag("Player").gameObject;
+        m_AudioS = m_Player.GetComponent<AudioSource>();
     }
     public void Update()
     {
@@ -51,10 +52,9 @@ public class Observe : MonoBehaviour
     public void Open()
     {
         m_ObserveCanvas.SetActive(true);
+        //m_Player.transform.GetComponent<CharacterController>().ToTalking();
 
         m_DescriptionDisplay.text = m_Description;
-
-        m_ObserveCanvas.SetActive(true);
 
         if (m_OneTimeOnly) m_Interacted = true;
 
@@ -83,7 +83,11 @@ public class Observe : MonoBehaviour
         //m_ReactionCanvas.SetActive(false);
 
         if (m_DialogueOnce) Destroy(m_DialogueCanvas);
-        else m_DialogueCanvas.SetActive(false);
+        else
+        {
+            m_DialogueCanvas.SetActive(false);
+            //m_Player.transform.GetComponent<CharacterController>().ToMoving();
+        }
         //Close();
     }
     public void Close()
