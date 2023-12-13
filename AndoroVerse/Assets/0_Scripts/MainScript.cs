@@ -33,10 +33,20 @@ public class MainScript : MonoBehaviour
 
     void Start()
     {
-        CI = GameObject.FindWithTag("GameController").gameObject.GetComponent<CollectibleInventory>();
+        //CI = GameObject.FindWithTag("GameController").gameObject.GetComponent<CollectibleInventory>();
+        if(GameObject.FindWithTag("UI").gameObject.transform.Find("InGameUI").transform.Find("HealthBar").gameObject != null)
+        {
+            GameObject UI = GameObject.FindWithTag("UI").gameObject.transform.Find("InGameUI").transform.Find("HealthBar").gameObject;
+            m_HealthSlider = UI.transform.GetComponent<Slider>();
+            m_FillLifeBar = UI.transform.Find("FillMask").transform.Find("Fill").transform.GetComponent<Image>();
+        }
+
+        CI = GetComponent<CollectibleInventory>();
         m_Player = GameObject.FindGameObjectWithTag("Player");
 
         PlayerLifePoints = MaxPlayerLifePoints;
+
+
 
         m_HealthSlider.maxValue = MaxPlayerLifePoints;
         m_HealthSlider.value = PlayerLifePoints;
@@ -66,6 +76,7 @@ public class MainScript : MonoBehaviour
     public void TakeDamage(float DamageValue)
     {
         PlayerLifePoints -= DamageValue;
+        Debug.Log(PlayerLifePoints);
     }
     public void Heal(float HealthValue)
     {

@@ -297,18 +297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &172326566 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6960435710162908669, guid: 9c58f46243ffaad44bf43decaa6f27a4,
-    type: 3}
-  m_PrefabInstance: {fileID: 5426671170876345456}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &236807575
 GameObject:
   m_ObjectHideFlags: 0
@@ -2376,7 +2364,7 @@ PrefabInstance:
     - target: {fileID: 4257918025978156138, guid: 030d4b70f3134de46b11cebbc4461e2f,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4257918025978156138, guid: 030d4b70f3134de46b11cebbc4461e2f,
         type: 3}
@@ -2386,7 +2374,7 @@ PrefabInstance:
     - target: {fileID: 4257918025978156138, guid: 030d4b70f3134de46b11cebbc4461e2f,
         type: 3}
       propertyPath: m_AttackDamage
-      value: 1
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4257918025978156138, guid: 030d4b70f3134de46b11cebbc4461e2f,
         type: 3}
@@ -2477,6 +2465,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StoppingDistance
       value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257918026496873346, guid: 030d4b70f3134de46b11cebbc4461e2f,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257918026496873346, guid: 030d4b70f3134de46b11cebbc4461e2f,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257918026496873347, guid: 030d4b70f3134de46b11cebbc4461e2f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.48
       objectReference: {fileID: 0}
     - target: {fileID: 4600603550459579811, guid: 030d4b70f3134de46b11cebbc4461e2f,
         type: 3}
@@ -3432,18 +3435,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1379431447 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2290038119000762621, guid: 9c58f46243ffaad44bf43decaa6f27a4,
-    type: 3}
-  m_PrefabInstance: {fileID: 5426671170876345456}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1424172392
 GameObject:
   m_ObjectHideFlags: 0
@@ -5792,12 +5783,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_FillLifeBar
       value: 
-      objectReference: {fileID: 172326566}
+      objectReference: {fileID: 0}
     - target: {fileID: 8504415843213351528, guid: feada757bcfa0fb40b24fc3ab40adb22,
         type: 3}
       propertyPath: m_HealthSlider
       value: 
-      objectReference: {fileID: 1379431447}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -48,6 +48,7 @@ public class Dialogue : MonoBehaviour
     public void StartDialogue()
     {
         m_DialogueMenu.SetActive(true);
+        transform.Find("ItemShineVFX").gameObject.SetActive(false);
         //m_Player.transform.GetComponent<CharacterController>().ToTalking();
         m_Index = 0;
         m_NameDisplay.text = m_Speakers[m_Index].SpeakerName;
@@ -114,6 +115,7 @@ public class Dialogue : MonoBehaviour
                     GetComponent<BoxCollider>().enabled = false;
                     GetComponent<Dialogue>().enabled = false; //Destroy(gameObject);
                 }
+                else transform.Find("ItemShineVFX").gameObject.SetActive(true);
 
                 if (!m_CanMove) m_CanMove = true;
             }

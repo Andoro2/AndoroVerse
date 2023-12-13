@@ -10,6 +10,7 @@ public class MissionLessCinematic : MonoBehaviour
     private GameObject m_InGameUI;
     public GameObject m_CowdoroCinematicController;
 
+    public Transform m_NewPosition;
     public VideoPlayer m_VidPlayer;
     public VideoClip m_Cinematic;
     private GameObject m_Player;
@@ -39,7 +40,14 @@ public class MissionLessCinematic : MonoBehaviour
 
         m_Player.GetComponent<CharacterController>().enabled = false;
 
-        yield return new WaitForSeconds(m_VidDuration);
+        yield return new WaitForSeconds(m_VidDuration / 2);
+
+        if (m_NewPosition != null)
+        {
+            m_Player.transform.position = m_NewPosition.position;
+        }
+
+        yield return new WaitForSeconds(m_VidDuration / 2);
 
         m_Player.GetComponent<CharacterController>().enabled = true;
 
@@ -47,7 +55,7 @@ public class MissionLessCinematic : MonoBehaviour
         m_VidPlayer.enabled = false;
         m_InGameUI.SetActive(true);
 
-        if (m_OneTimeOnly) gameObject.SetActive(false);
+        if (m_OneTimeOnly) Destroy(this.gameObject);
 
         if (m_CowdoroCinematicController != null) m_CowdoroCinematicController.GetComponent<CowDoroInteractionController>().m_CinematicInteraction = true;
     }

@@ -164,6 +164,7 @@ public class CharacterController : MonoBehaviour
             {
                 CharState = CharStates.Talking;
                 CanAttack = false;
+                Move();
             }
         }
         else

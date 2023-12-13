@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class CinematicTrigger : MonoBehaviour
 {
-    public int m_MissionIndex;
+    //public int m_MissionIndex;
     public float m_VidDuration;
     private GameObject m_InGameUI;
 
-    GameProgress GP;
+    //GameProgress GP;
 
     public VideoPlayer m_VidPlayer;
     public VideoClip m_Cinematic;
@@ -25,7 +25,7 @@ public class CinematicTrigger : MonoBehaviour
     void Start()
     {
         m_InGameUI = GameObject.FindWithTag("UI").gameObject.transform.GetChild(0).gameObject;
-        GP = GameObject.FindWithTag("GameController").gameObject.GetComponent<GameProgress>();
+        //GP = GameObject.FindWithTag("GameController").gameObject.GetComponent<GameProgress>();
         m_Player = GameObject.FindWithTag("Player").gameObject;
         m_VidPlayer.playOnAwake = false;
     }
@@ -45,7 +45,12 @@ public class CinematicTrigger : MonoBehaviour
         m_VidPlayer.enabled = true;
         if(m_InGameUI != null) m_InGameUI.SetActive(false);
 
-        m_Player.GetComponent<CharacterController>().enabled = false;
+        //CharacterController CC = m_Player.GetComponent<CharacterController>();
+
+        if (m_Player.GetComponent<CharacterController>().enabled)
+        {
+            m_Player.GetComponent<CharacterController>().enabled = false;
+        }
 
         yield return new WaitForSeconds(m_VidDuration / 2f);
 
@@ -55,8 +60,11 @@ public class CinematicTrigger : MonoBehaviour
         }
 
         yield return new WaitForSeconds(m_VidDuration / 2f);
-        
-        m_Player.GetComponent<CharacterController>().enabled = true;
+
+        if (!m_Player.GetComponent<CharacterController>().enabled)
+        {
+            m_Player.GetComponent<CharacterController>().enabled = true;
+        }
         
         m_VidPlayer.Stop();
         m_VidPlayer.enabled = false;

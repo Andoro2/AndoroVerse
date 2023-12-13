@@ -7319,7 +7319,7 @@ GameObject:
   - component: {fileID: 817955956}
   - component: {fileID: 817955955}
   m_Layer: 0
-  m_Name: Point19
+  m_Name: Point20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7337,7 +7337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def2eb52c5879694787675ffed9a3e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CheckpointIndex: 13000000
+  m_CheckpointIndex: 14000000
 --- !u!4 &817955956
 Transform:
   m_ObjectHideFlags: 0
@@ -8929,7 +8929,7 @@ GameObject:
   - component: {fileID: 1114484664}
   - component: {fileID: 1114484663}
   m_Layer: 0
-  m_Name: Point18
+  m_Name: Point19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8947,7 +8947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def2eb52c5879694787675ffed9a3e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CheckpointIndex: 12000000
+  m_CheckpointIndex: 13000000
 --- !u!4 &1114484664
 Transform:
   m_ObjectHideFlags: 0
@@ -10229,7 +10229,7 @@ GameObject:
   - component: {fileID: 1292554842}
   - component: {fileID: 1292554841}
   m_Layer: 0
-  m_Name: Point15
+  m_Name: Point16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10247,7 +10247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def2eb52c5879694787675ffed9a3e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CheckpointIndex: 0f000000
+  m_CheckpointIndex: 10000000
 --- !u!4 &1292554842
 Transform:
   m_ObjectHideFlags: 0
@@ -10721,7 +10721,7 @@ GameObject:
   - component: {fileID: 1340405266}
   - component: {fileID: 1340405265}
   m_Layer: 0
-  m_Name: Point17
+  m_Name: Point18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10739,7 +10739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def2eb52c5879694787675ffed9a3e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CheckpointIndex: 11000000
+  m_CheckpointIndex: 12000000
 --- !u!4 &1340405266
 Transform:
   m_ObjectHideFlags: 0
@@ -11603,7 +11603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def2eb52c5879694787675ffed9a3e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CheckpointIndex: 1300000014000000
+  m_CheckpointIndex: 1400000015000000
 --- !u!4 &1467404619
 Transform:
   m_ObjectHideFlags: 0
@@ -11803,7 +11803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def2eb52c5879694787675ffed9a3e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CheckpointIndex: 1300000014000000
+  m_CheckpointIndex: 1400000015000000
 --- !u!4 &1524825016
 Transform:
   m_ObjectHideFlags: 0
@@ -12749,7 +12749,7 @@ GameObject:
   - component: {fileID: 1610429922}
   - component: {fileID: 1610429921}
   m_Layer: 0
-  m_Name: Point20
+  m_Name: Point21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12767,7 +12767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def2eb52c5879694787675ffed9a3e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CheckpointIndex: 14000000
+  m_CheckpointIndex: 15000000
 --- !u!4 &1610429922
 Transform:
   m_ObjectHideFlags: 0
@@ -16355,7 +16355,7 @@ GameObject:
   - component: {fileID: 1841952453}
   - component: {fileID: 1841952454}
   m_Layer: 0
-  m_Name: Point14
+  m_Name: Point15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16393,7 +16393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def2eb52c5879694787675ffed9a3e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CheckpointIndex: 0e000000
+  m_CheckpointIndex: 0f000000
 --- !u!1 &1843134505
 GameObject:
   m_ObjectHideFlags: 0
@@ -16551,7 +16551,7 @@ GameObject:
   - component: {fileID: 1905031761}
   - component: {fileID: 1905031760}
   m_Layer: 0
-  m_Name: Point21
+  m_Name: Point22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16569,7 +16569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def2eb52c5879694787675ffed9a3e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CheckpointIndex: 15000000
+  m_CheckpointIndex: 16000000
 --- !u!4 &1905031761
 Transform:
   m_ObjectHideFlags: 0
@@ -17924,7 +17924,7 @@ GameObject:
   - component: {fileID: 2030902941}
   - component: {fileID: 2030902940}
   m_Layer: 0
-  m_Name: Point16
+  m_Name: Point17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17942,7 +17942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def2eb52c5879694787675ffed9a3e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CheckpointIndex: 10000000
+  m_CheckpointIndex: 11000000
 --- !u!4 &2030902941
 Transform:
   m_ObjectHideFlags: 0
