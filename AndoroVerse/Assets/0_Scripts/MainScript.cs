@@ -25,6 +25,7 @@ public class MainScript : MonoBehaviour
 
     private CollectibleInventory CI;
 
+    public GameObject UI;
     public Slider m_HealthSlider;
     public Gradient m_HeathBarGradient;
     public Image m_FillLifeBar;
@@ -34,26 +35,27 @@ public class MainScript : MonoBehaviour
     void Start()
     {
         //CI = GameObject.FindWithTag("GameController").gameObject.GetComponent<CollectibleInventory>();
-        if(GameObject.FindWithTag("UI").gameObject.transform.Find("InGameUI").transform.Find("HealthBar").gameObject != null)
-        {
-            GameObject UI = GameObject.FindWithTag("UI").gameObject.transform.Find("InGameUI").transform.Find("HealthBar").gameObject;
-            m_HealthSlider = UI.transform.GetComponent<Slider>();
-            m_FillLifeBar = UI.transform.Find("FillMask").transform.Find("Fill").transform.GetComponent<Image>();
-        }
+        
+        if(UI == null) FindUI();
 
         CI = GetComponent<CollectibleInventory>();
         m_Player = GameObject.FindGameObjectWithTag("Player");
 
         PlayerLifePoints = MaxPlayerLifePoints;
 
-
-
         m_HealthSlider.maxValue = MaxPlayerLifePoints;
         m_HealthSlider.value = PlayerLifePoints;
     }
-
+    void FindUI()
+    {
+        UI = GameObject.FindWithTag("UI").gameObject.transform.Find("InGameUI").transform.Find("HealthBar").gameObject;
+        m_HealthSlider = UI.transform.GetComponent<Slider>();
+        m_FillLifeBar = UI.transform.Find("FillMask").transform.Find("Fill").transform.GetComponent<Image>();
+    }
     void Update()
     {
+        if (UI == null) FindUI();
+
         PlayerMeleDamage = m_PlayerMeleDamage;
         PlayerFireDamage = m_PlayerFireDamage;
         PlayerShockDamage = m_PlayerShockDamage;
@@ -65,9 +67,7 @@ public class MainScript : MonoBehaviour
         }
         if (PlayerLifePoints <= 0f)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            //Death();
-            PlayerLifePoints = MaxPlayerLifePoints;
+           Death();
         }
 
         m_HealthSlider.value = PlayerLifePoints;
@@ -84,8 +84,32 @@ public class MainScript : MonoBehaviour
     }
     public void Death()
     {
-        m_Player.transform.position = m_ControlPoint.transform.position;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        m_Player.transform.GetComponent<CharacterController>().Death();
+
+        GameObject[] m_Enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject Enemy in m_Enemies)
+        {
+            if(Enemy.gameObject.GetComponent<EnemyAndroSphere>() != null)
+            {
+                Enemy.gameObject.GetComponent<EnemyAndroSphere>().enabled = false;
+            }
+            else if (Enemy.gameObject.GetComponent<EnemyCannonFly>() != null)
+            {
+                Enemy.gameObject.GetComponent<EnemyCannonFly>().enabled = false;
+            }
+            else if (Enemy.gameObject.GetComponent<EnemyLeviTank>() != null)
+            {
+                Enemy.gameObject.GetComponent<EnemyLeviTank>().enabled = false;
+            }
+        }
+
+        GameObject GameUI = GameObject.FindWithTag("UI");
+        GameUI.transform.Find("InGameUI").gameObject.SetActive(false);
+        GameUI.transform.Find("DeathScreen").gameObject.SetActive(true);
+    }
+    public void RestoreLife()
+    {
+        PlayerLifePoints = MaxPlayerLifePoints;
     }
     /*private void OnGUI()
     {

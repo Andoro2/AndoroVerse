@@ -313,14 +313,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaxLifePoints: 25
-  m_LifePoints: 0
-  m_KnockBackForce: 0
-  m_KnockBackDuration: 0
+  m_LifePoints: 15
+  m_KnockBackForce: 20
+  m_KnockBackDuration: 0.1
   m_HealthSlider: {fileID: 5949606932251798816}
   m_Drops: []
   m_PickUpPreFab: {fileID: 875597132185169564, guid: 30fe481923e42164b9a4416ec51e44d0,
     type: 3}
-  m_ExplosionDeath: {fileID: 8128833918210986895, guid: ac6bf1eda674afe46a771b564112da6e,
+  m_ExplosionDeath: {fileID: 8128833918210986895, guid: 7d8a7bfba428e0d418e55bfce9ccaed1,
     type: 3}
 --- !u!114 &4997252852285660965
 MonoBehaviour:
@@ -429,7 +429,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 35c5d3986cdfa7140a445790a1608e21, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

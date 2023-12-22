@@ -10,22 +10,21 @@ public class CinematicTrigger : MonoBehaviour
     public float m_VidDuration;
     private GameObject m_InGameUI;
 
-    //GameProgress GP;
+    GameProgress GP;
 
     public VideoPlayer m_VidPlayer;
     public VideoClip m_Cinematic;
 
-    //public bool m_ChangePosition = false;
     public Transform m_NewPosition;
     private GameObject m_Player;
 
-    public bool m_NextLevel = false;
+    public bool m_CheckpointAdvance = false, m_MissionAdvance = false, m_NextScene = false;
     public int m_SceneIndex;
 
     void Start()
     {
         m_InGameUI = GameObject.FindWithTag("UI").gameObject.transform.GetChild(0).gameObject;
-        //GP = GameObject.FindWithTag("GameController").gameObject.GetComponent<GameProgress>();
+        GP = GameObject.FindWithTag("GameController").gameObject.GetComponent<GameProgress>();
         m_Player = GameObject.FindWithTag("Player").gameObject;
         m_VidPlayer.playOnAwake = false;
     }
@@ -70,10 +69,9 @@ public class CinematicTrigger : MonoBehaviour
         m_VidPlayer.enabled = false;
         m_InGameUI.SetActive(true);
 
-        if (m_NextLevel)
-        {
-            SceneManager.LoadScene(m_SceneIndex);
-        }
+        if(m_CheckpointAdvance) GP.AdvanceCheckpoint();
+        if (m_MissionAdvance) GP.AdvanceMission();
+        if (m_NextScene)SceneManager.LoadScene(m_SceneIndex);
         Destroy(gameObject);
     }
 }

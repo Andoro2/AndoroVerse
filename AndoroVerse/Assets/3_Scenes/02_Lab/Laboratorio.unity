@@ -666,17 +666,17 @@ PrefabInstance:
     - target: {fileID: 7968276526247690634, guid: d0bac61d2c69914428663cc31331f5bf,
         type: 3}
       propertyPath: m_Speakers.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7968276526247690634, guid: d0bac61d2c69914428663cc31331f5bf,
         type: 3}
       propertyPath: m_Speakers.Array.data[0].Line
-      value: "Santo dios \xBFque ha pasado aqu\xED? \xBFSalinas?"
+      value: "Ya estoy por aqu\xED \xBFSalinas, est\xE1s?"
       objectReference: {fileID: 0}
     - target: {fileID: 7968276526247690634, guid: d0bac61d2c69914428663cc31331f5bf,
         type: 3}
       propertyPath: m_Speakers.Array.data[1].Line
-      value: Parte dos bitch.
+      value: "D\xF3nde se habr\xE1 metido este t\xEDo."
       objectReference: {fileID: 0}
     - target: {fileID: 7968276526247690634, guid: d0bac61d2c69914428663cc31331f5bf,
         type: 3}
@@ -1956,6 +1956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CheckpointIndex: 02000000
+  PutoChalecoDeMierda: {fileID: 0}
 --- !u!4 &192617413
 Transform:
   m_ObjectHideFlags: 0
@@ -3791,6 +3792,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RobotArmInteraction
       objectReference: {fileID: 0}
+    - target: {fileID: 3029946908035785033, guid: d0bac61d2c69914428663cc31331f5bf,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 7968276526247690634, guid: d0bac61d2c69914428663cc31331f5bf,
         type: 3}
       propertyPath: m_Speakers.Array.size
@@ -4931,12 +4937,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05084f3a0f1dff7439985d026e56a2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MissionIndex: 1
   m_VidDuration: 64
   m_VidPlayer: {fileID: 1988177195}
   m_Cinematic: {fileID: 32900000, guid: 071e91f900396b14fb5c0cff048fa35c, type: 3}
   m_NewPosition: {fileID: 0}
-  m_NextLevel: 0
+  m_CheckpointAdvance: 0
+  m_MissionAdvance: 0
+  m_NextScene: 0
   m_SceneIndex: 3
 --- !u!4 &568756228
 Transform:
@@ -6171,6 +6178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CheckpointIndex: 03000000
+  PutoChalecoDeMierda: {fileID: 0}
 --- !u!1001 &769673531
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7137,7 +7145,7 @@ GameObject:
   - component: {fileID: 988687755}
   - component: {fileID: 988687757}
   m_Layer: 0
-  m_Name: CinematicPortal
+  m_Name: AdvanceToCinematic3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7155,6 +7163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff9f5c7edc95e74d9efdc74c162ead0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MissionAdvance: 0
 --- !u!4 &988687756
 Transform:
   m_ObjectHideFlags: 0
@@ -7308,6 +7317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CheckpointIndex: 00000000
+  PutoChalecoDeMierda: {fileID: 0}
 --- !u!4 &1043817380
 Transform:
   m_ObjectHideFlags: 0
@@ -9814,12 +9824,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05084f3a0f1dff7439985d026e56a2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MissionIndex: 2
   m_VidDuration: 44
   m_VidPlayer: {fileID: 24040579}
   m_Cinematic: {fileID: 32900000, guid: 92c20dde9968fd444ab28457df6d95d6, type: 3}
   m_NewPosition: {fileID: 1529784632}
-  m_NextLevel: 0
+  m_CheckpointAdvance: 0
+  m_MissionAdvance: 0
+  m_NextScene: 0
   m_SceneIndex: 3
 --- !u!4 &1497931065 stripped
 Transform:
@@ -10063,12 +10074,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05084f3a0f1dff7439985d026e56a2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MissionIndex: 3
   m_VidDuration: 26
   m_VidPlayer: {fileID: 328277730}
   m_Cinematic: {fileID: 32900000, guid: 3b5423aa983453c468c68c5c778945ac, type: 3}
   m_NewPosition: {fileID: 0}
-  m_NextLevel: 1
+  m_CheckpointAdvance: 0
+  m_MissionAdvance: 1
+  m_NextScene: 1
   m_SceneIndex: 3
 --- !u!4 &1566407932
 Transform:
@@ -10151,6 +10163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff9f5c7edc95e74d9efdc74c162ead0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MissionAdvance: 0
 --- !u!1001 &1591666296
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12635,6 +12648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CheckpointIndex: 01000000
+  PutoChalecoDeMierda: {fileID: 0}
 --- !u!4 &2058047983
 Transform:
   m_ObjectHideFlags: 0

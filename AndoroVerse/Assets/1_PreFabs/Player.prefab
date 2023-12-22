@@ -949,7 +949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def2eb52c5879694787675ffed9a3e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CheckpointIndex: 0b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000
+  m_CheckpointIndex: 0b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000150000001600000017000000
 --- !u!1 &4435075049194753019
 GameObject:
   m_ObjectHideFlags: 0
@@ -2200,7 +2200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def2eb52c5879694787675ffed9a3e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CheckpointIndex: 0b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000
+  m_CheckpointIndex: 0b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000150000001600000017000000
 --- !u!1 &6574079374969155561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2981,6 +2981,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8696288650514261852}
+  - component: {fileID: 6406871952201902159}
   m_Layer: 0
   m_Name: SwordSaveHolder
   m_TagString: Untagged
@@ -3003,6 +3004,19 @@ Transform:
   m_Father: {fileID: 3484710372273716590}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 6.277, y: -166.789, z: -73.421}
+--- !u!114 &6406871952201902159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7980744567936881170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def2eb52c5879694787675ffed9a3e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CheckpointIndex: 0b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000150000001600000017000000
 --- !u!1 &8140987332350249589
 GameObject:
   m_ObjectHideFlags: 0

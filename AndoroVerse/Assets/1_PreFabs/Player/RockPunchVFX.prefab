@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7622dc0854fa49b4cbe529c99b9204cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitDmg: 5
   m_HitVFX: {fileID: 8925781867398088669, guid: 913cd4d99a2a6aa44bc3188d6feb3ccc,
     type: 3}
+  m_AttackDamage: 15
   m_AttackAudio: {fileID: 0}
 --- !u!65 &7249534547740023156
 BoxCollider:

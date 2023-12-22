@@ -22,7 +22,8 @@ public class InteractionType : MonoBehaviour
     {
         if (InteractionMode == InteractionTypes.Dialogue)
         {
-            InteractionName = "Hablar";
+            if(transform.name == "RobotArmInteraction") InteractionName = "Interactuar";
+            else InteractionName = "Hablar";
             return true;
         }
         else

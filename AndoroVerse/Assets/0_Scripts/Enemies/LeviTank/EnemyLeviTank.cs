@@ -53,6 +53,7 @@ public class EnemyLeviTank : MonoBehaviour
         else if (m_EnemyState == States.Patrol)
         {
             transform.GetComponent<EnemyPatrol>().Patrol();
+            Attack();
             //m_Anim.SetBool("Patrol", true);
             //m_Anim.SetBool("AttackMoving", false);
         }

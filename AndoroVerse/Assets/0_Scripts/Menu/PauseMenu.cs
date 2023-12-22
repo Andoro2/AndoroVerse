@@ -59,6 +59,11 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(1);
     }
+    public void RestartLevel()
+    {
+        MS.RestoreLife();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     private void Awake()
     {
         playerInputActions = new InputManager();

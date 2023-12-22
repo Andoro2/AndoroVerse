@@ -11,7 +11,7 @@ public class CharacterController : MonoBehaviour
 {
     private UnityEngine.CharacterController m_Controller;
     private Inventory m_Inventario;
-    private enum CharStates { Moving, Interacting, Chaneling, Talking}
+    private enum CharStates { Moving, Interacting, Chaneling, Talking, Dead}
     [SerializeField] private CharStates CharState = CharStates.Moving;
     private enum Weapons { Weaponless, Scepter, Shields, Sword }
     [SerializeField] private Weapons ActiveWeapon = Weapons.Weaponless;
@@ -1220,14 +1220,14 @@ public class CharacterController : MonoBehaviour
             };
         }
     }
-    /*public void ToTalking()
+    public void Death()
     {
-        CharState = CharStates.Talking;
-        CanAttack = false;
+        if(CharState != CharStates.Dead)
+        {
+            CharState = CharStates.Dead;
+            m_AnimatorController.SetTrigger("Death");
+            Debug.Log("Muelto");
+            transform.GetComponent<CharacterController>().enabled = false;
+        }
     }
-    public void ToMoving()
-    {
-        CharState = CharStates.Moving;
-        CanAttack = true;
-    }*/
 }
