@@ -7,6 +7,7 @@ public class InteractionType : MonoBehaviour
     public enum InteractionTypes { Dialogue, Observe, Reaction, PickUp, DropDown, Collectible, GetIn }
     public InteractionTypes InteractionMode;
 
+    public string SpecialInteractionText;
     [HideInInspector]
     public string InteractionName;
 
@@ -18,12 +19,16 @@ public class InteractionType : MonoBehaviour
         IsCollectible();
         IsGetIn();
     }
+    string SpecialInteraction(string InteractionText)
+    {
+        if (SpecialInteractionText != null) return SpecialInteractionText;
+        else return InteractionText;
+    }
     public bool IsDialogue()
     {
         if (InteractionMode == InteractionTypes.Dialogue)
         {
-            if(transform.name == "RobotArmInteraction") InteractionName = "Interactuar";
-            else InteractionName = "Hablar";
+            InteractionName = SpecialInteraction("Hablar");
             return true;
         }
         else
@@ -35,12 +40,12 @@ public class InteractionType : MonoBehaviour
     {
         if (InteractionMode == InteractionTypes.PickUp)
         {
-            InteractionName = "Recoger";
+            InteractionName = SpecialInteraction("Recoger");
             return true;
         }
         else if (InteractionMode == InteractionTypes.DropDown)
         {
-            InteractionName = "Dejar";
+            InteractionName = SpecialInteraction("Dejar");
             return true;
         }
         else
@@ -52,7 +57,7 @@ public class InteractionType : MonoBehaviour
     {
         if (InteractionMode == InteractionTypes.Observe)
         {
-            InteractionName = "Observar";
+            InteractionName = SpecialInteraction("Observar");
             return true;
         }
         else
@@ -76,7 +81,7 @@ public class InteractionType : MonoBehaviour
     {
         if (InteractionMode == InteractionTypes.Collectible)
         {
-            InteractionName = "Coleccionable";
+            InteractionName = SpecialInteraction("Coleccionable");
             return true;
         }
         else
@@ -88,7 +93,7 @@ public class InteractionType : MonoBehaviour
     {
         if (InteractionMode == InteractionTypes.GetIn)
         {
-            InteractionName = "Entrar";
+            InteractionName = SpecialInteraction("Entrar");
             return true;
         }
         else

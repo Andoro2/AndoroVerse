@@ -2577,7 +2577,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -110}
-  m_SizeDelta: {x: 100, y: 20}
+  m_SizeDelta: {x: 100, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7626786208909651660
 CanvasRenderer:
@@ -5339,7 +5339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 712463f59f877814796d9c45378d6868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ResDropDown: {fileID: 0}
+  m_ResDropDown: {fileID: 3784390956919440949}
   m_VolumeMixer: {fileID: 24100000, guid: c4a5019a5b109c847a61f08aa4412d36, type: 2}
 --- !u!1 &5155577376460193082
 GameObject:
@@ -5874,7 +5874,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4685077769820769023
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5884,7 +5884,7 @@ RectTransform:
   m_GameObject: {fileID: 5363476617828882134}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.54, y: 1.54, z: 1.54}
+  m_LocalScale: {x: 3.4999998, y: 3.4999998, z: 3.4999998}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 14611187601535417}

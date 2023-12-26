@@ -34,11 +34,14 @@ public class GameProgress : MonoBehaviour
     {
         GameObject GameUI = GameObject.FindWithTag("UI");
 
-        m_MissionObjective = GameUI.transform.Find("InGameUI").Find("MissionObjective").GetComponent<TextMeshProUGUI>();
+        if(GameUI != null && GameUI.name == "GameUI")
+        {
+            m_MissionObjective = GameUI.transform.Find("InGameUI").Find("MissionObjective").GetComponent<TextMeshProUGUI>();
 
-        GameObject MissionInfo = GameUI.transform.Find("PauseMenu").Find("MissionInfo").gameObject;
-        m_MissionName = MissionInfo.transform.Find("MissionTitle").GetComponent<TextMeshProUGUI>();
-        m_MissionDescription = MissionInfo.transform.Find("MissionInfo").GetComponent<TextMeshProUGUI>();
+            GameObject MissionInfo = GameUI.transform.Find("PauseMenu").Find("MissionInfo").gameObject;
+            m_MissionName = MissionInfo.transform.Find("MissionTitle").GetComponent<TextMeshProUGUI>();
+            m_MissionDescription = MissionInfo.transform.Find("MissionInfo").GetComponent<TextMeshProUGUI>();
+        }
     }
     public void AdvanceCheckpoint()
     {

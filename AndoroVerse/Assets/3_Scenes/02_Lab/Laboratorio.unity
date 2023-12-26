@@ -3792,10 +3792,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RobotArmInteraction
       objectReference: {fileID: 0}
-    - target: {fileID: 3029946908035785033, guid: d0bac61d2c69914428663cc31331f5bf,
+    - target: {fileID: 5113325213618831822, guid: d0bac61d2c69914428663cc31331f5bf,
         type: 3}
-      propertyPath: m_TagString
-      value: Untagged
+      propertyPath: SpecialInteractionText
+      value: Interactuar
       objectReference: {fileID: 0}
     - target: {fileID: 7968276526247690634, guid: d0bac61d2c69914428663cc31331f5bf,
         type: 3}
@@ -4596,7 +4596,7 @@ PrefabInstance:
     - target: {fileID: 8504415843213351528, guid: feada757bcfa0fb40b24fc3ab40adb22,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9978,6 +9978,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DialogueKidnap
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113325213618831822, guid: d0bac61d2c69914428663cc31331f5bf,
+        type: 3}
+      propertyPath: SpecialInteractionText
+      value: Ver
       objectReference: {fileID: 0}
     - target: {fileID: 7968276526247690634, guid: d0bac61d2c69914428663cc31331f5bf,
         type: 3}

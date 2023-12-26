@@ -84,6 +84,7 @@ public class MainScript : MonoBehaviour
     }
     public void Death()
     {
+        if(m_Player == null) m_Player = GameObject.FindGameObjectWithTag("Player");
         m_Player.transform.GetComponent<CharacterController>().Death();
 
         GameObject[] m_Enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -106,6 +107,7 @@ public class MainScript : MonoBehaviour
         GameObject GameUI = GameObject.FindWithTag("UI");
         GameUI.transform.Find("InGameUI").gameObject.SetActive(false);
         GameUI.transform.Find("DeathScreen").gameObject.SetActive(true);
+        PlayerLifePoints = MaxPlayerLifePoints;
     }
     public void RestoreLife()
     {

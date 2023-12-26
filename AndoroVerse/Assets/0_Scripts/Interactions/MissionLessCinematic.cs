@@ -38,6 +38,7 @@ public class MissionLessCinematic : MonoBehaviour
         m_VidPlayer.enabled = true;
         if (m_InGameUI != null) m_InGameUI.SetActive(false);
 
+        if(m_Player == null) m_Player = GameObject.FindWithTag("Player").gameObject;
         m_Player.GetComponent<CharacterController>().enabled = false;
 
         yield return new WaitForSeconds(m_VidDuration / 2);
@@ -53,6 +54,7 @@ public class MissionLessCinematic : MonoBehaviour
 
         m_VidPlayer.Stop();
         m_VidPlayer.enabled = false;
+        if(m_InGameUI == null) m_InGameUI = GameObject.FindWithTag("UI").gameObject.transform.Find("InGameUI").gameObject;
         m_InGameUI.SetActive(true);
 
         if (m_OneTimeOnly) Destroy(this.gameObject);
