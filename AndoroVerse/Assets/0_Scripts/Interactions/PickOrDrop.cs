@@ -43,8 +43,14 @@ public class PickOrDrop : MonoBehaviour
             }
             else Inventario.AddQuantity(Item);
 
+            if (Item.UniqueObject)
+            {
+                gameObject.GetComponent<PickOrDrop>().enabled = false;
+                gameObject.GetComponent<InteractionType>().enabled = false;
+                gameObject.GetComponent<Collider>().enabled = false;
+                gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            }
             //gameObject.GetComponent<PickOrDrop>().enabled = false;
-            Destroy(gameObject);
         }
     }
     public void DropDownObject()

@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionMode: 2
+  SpecialInteractionText: Observar
   InteractionName: 
 --- !u!114 &1111781791003520960
 MonoBehaviour:

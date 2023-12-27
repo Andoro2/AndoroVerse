@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionMode: 5
+  SpecialInteractionText: Coleccionable
   InteractionName: 
 --- !u!114 &1869121443648683526
 MonoBehaviour:

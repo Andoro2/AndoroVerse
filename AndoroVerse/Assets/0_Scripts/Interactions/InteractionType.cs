@@ -21,7 +21,7 @@ public class InteractionType : MonoBehaviour
     }
     string SpecialInteraction(string InteractionText)
     {
-        if (SpecialInteractionText != null) return SpecialInteractionText;
+        if (SpecialInteractionText != InteractionText) return SpecialInteractionText;
         else return InteractionText;
     }
     public bool IsDialogue()

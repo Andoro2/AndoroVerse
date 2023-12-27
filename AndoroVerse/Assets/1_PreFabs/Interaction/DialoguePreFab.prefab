@@ -366,6 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionMode: 0
+  SpecialInteractionText: Hablar
   InteractionName: 
 --- !u!114 &7968276526247690634
 MonoBehaviour:

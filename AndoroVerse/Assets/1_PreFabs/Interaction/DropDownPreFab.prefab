@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionMode: 4
+  SpecialInteractionText: Dejar
   InteractionName: 
 --- !u!114 &4764643537529801241
 MonoBehaviour:

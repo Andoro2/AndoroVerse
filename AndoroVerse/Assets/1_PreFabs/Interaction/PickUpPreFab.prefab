@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionMode: 3
+  SpecialInteractionText: Recoger
   InteractionName: 
 --- !u!114 &8840037623748293128
 MonoBehaviour:
