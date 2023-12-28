@@ -463,6 +463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HitVFX: {fileID: 8925781867398088669, guid: 913cd4d99a2a6aa44bc3188d6feb3ccc,
     type: 3}
+  m_AttackDamage: 0
   m_AttackAudio: {fileID: 0}
 --- !u!1 &2224604309800741469
 GameObject:
@@ -641,6 +642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HitVFX: {fileID: 8925781867398088669, guid: 913cd4d99a2a6aa44bc3188d6feb3ccc,
     type: 3}
+  m_AttackDamage: 0
   m_AttackAudio: {fileID: 0}
 --- !u!1 &2946399947086633389
 GameObject:
@@ -950,6 +952,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CheckpointIndex: 0b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000150000001600000017000000
+  PutoChalecoDeMierda: {fileID: 0}
 --- !u!1 &4435075049194753019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1767,8 +1770,8 @@ MonoBehaviour:
   m_WalkSpeed: 20
   m_RunSpeed: 40
   gravity: -50
-  m_JumpForce: 50
-  m_JumpTime: 2
+  m_JumpForce: 200
+  m_JumpTime: 0.1
   m_AirTimeCounter: 0
   maxJumps: 1
   m_CoyoteTime: 0.5
@@ -1785,11 +1788,11 @@ MonoBehaviour:
   CanAttack: 1
   m_SlashVFXs:
   - SlashVFX: {fileID: 2946399947086633389}
-    Delay: 0.3
+    Delay: 0.5
   - SlashVFX: {fileID: 8140987332350249589}
     Delay: 0.25
   - SlashVFX: {fileID: 7249744673665031927}
-    Delay: 0.06
+    Delay: 0.25
   m_RockPunch: {fileID: 5034369203677437933, guid: ed3ac96550cf0d34d85040d21c4d8627,
     type: 3}
   m_GroundSlash: {fileID: 4484745934877485345, guid: 3621dc6b5ef1f39449c55aaa7ac4b477,
@@ -2201,6 +2204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CheckpointIndex: 0b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000150000001600000017000000
+  PutoChalecoDeMierda: {fileID: 0}
 --- !u!1 &6574079374969155561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2545,6 +2549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HitVFX: {fileID: 8925781867398088669, guid: 913cd4d99a2a6aa44bc3188d6feb3ccc,
     type: 3}
+  m_AttackDamage: 0
   m_AttackAudio: {fileID: 0}
 --- !u!1 &7044773111736558370
 GameObject:
@@ -2715,6 +2720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HitVFX: {fileID: 8925781867398088669, guid: 913cd4d99a2a6aa44bc3188d6feb3ccc,
     type: 3}
+  m_AttackDamage: 0
   m_AttackAudio: {fileID: 0}
 --- !u!1 &7479867343001505535
 GameObject:
@@ -3017,6 +3023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CheckpointIndex: 0b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000150000001600000017000000
+  PutoChalecoDeMierda: {fileID: 0}
 --- !u!1 &8140987332350249589
 GameObject:
   m_ObjectHideFlags: 0
@@ -3547,6 +3554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CheckpointIndex: 0b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000
+  PutoChalecoDeMierda: {fileID: 0}
 --- !u!4 &870793551310084086 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 23228294cbe58424fa1d30dc2671ca37,

@@ -27,37 +27,10 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614558}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614610}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614622}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614634}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614614}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614619}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614640}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614644}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614650}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614656}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614555}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614606}
       id: 0
       isStickyNote: 0
   - title: Decal
@@ -74,46 +47,16 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614659}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614708}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614717}
       id: 0
       isStickyNote: 0
     - model: {fileID: 8926484042661614664}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614728}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614691}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614752}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614735}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614738}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614743}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614749}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614758}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614761}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614765}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614771}
       id: 0
       isStickyNote: 0
   - title: Debries
@@ -1779,7 +1722,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 2.5
+      m_SerializableObject: 1.25
     m_Space: 2147483647
   m_Property:
     name: Lifetime

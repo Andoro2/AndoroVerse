@@ -154,8 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletDmg: 2
-  BulletSpeed: 2
-  LiveTime: 5
+  BulletSpeed: 5
+  LiveTime: 10
 --- !u!1 &4114230070548489829
 GameObject:
   m_ObjectHideFlags: 0

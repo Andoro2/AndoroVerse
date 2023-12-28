@@ -414,6 +414,8 @@ public class CharacterController : MonoBehaviour
                     {
                         CharState = CharStates.Chaneling;
 
+                        m_FightingCounter = m_FightingCoolDown;
+
                         m_GroundSlashCharge += Time.deltaTime;
 
                         m_AnimatorController.SetBool("SwordHeavyLoad", true);
@@ -466,12 +468,15 @@ public class CharacterController : MonoBehaviour
         }
         CharState = CharStates.Moving;
     }
+    private float m_QuickAttackCD = 0.5f;
     private void QuickAttackCombo()
     {
         if (m_ComboTimer > 0) m_ComboTimer -= Time.deltaTime;
         else m_ComboCount = 0;
 
-        if (playerInputActions.Actions.QuickAttack.triggered && CanAttack)
+        if (m_QuickAttackCD > 0) m_QuickAttackCD -= Time.deltaTime;
+
+        if (playerInputActions.Actions.QuickAttack.triggered && CanAttack && m_QuickAttackCD <= 0f)
         {
             if(ActiveWeapon != Weapons.Scepter && ActiveWeapon != Weapons.Weaponless)
             {
@@ -489,6 +494,7 @@ public class CharacterController : MonoBehaviour
                     if(ActiveWeapon == Weapons.Sword)
                     {
                         StartCoroutine("SlashVFX", m_SlashVFXs[0]);
+                        m_QuickAttackCD = 0.8f;
                     }
                     else if (ActiveWeapon == Weapons.Shields)
                     {
@@ -520,6 +526,7 @@ public class CharacterController : MonoBehaviour
                     if (ActiveWeapon == Weapons.Sword)
                     {
                         StartCoroutine("SlashVFX", m_SlashVFXs[1]);
+                        m_QuickAttackCD = 0.75f;
                     }
                     else if(ActiveWeapon == Weapons.Shields)
                     {
@@ -535,6 +542,7 @@ public class CharacterController : MonoBehaviour
                     if (ActiveWeapon == Weapons.Sword)
                     {
                         StartCoroutine("SlashVFX", m_SlashVFXs[2]);
+                        m_QuickAttackCD = 1f;
                     }
                     else if (ActiveWeapon == Weapons.Shields)
                     {
@@ -583,7 +591,7 @@ public class CharacterController : MonoBehaviour
         {
             m_ShootTimer -= Time.deltaTime;
         }
-        if (moveInput.magnitude > 0.1f && playerInputActions.Actions.HeavyAttack.triggered && m_ShootTimer <= 0f && CanAttack)
+        if(playerInputActions.Actions.HeavyAttack.triggered && m_ShootTimer <= 0f && CanAttack && ActiveWeapon == Weapons.Scepter)
         {
             Instantiate(bullet, m_Target.position, transform.rotation);
             m_AnimatorController.SetTrigger("Range");
@@ -591,16 +599,26 @@ public class CharacterController : MonoBehaviour
             m_FightingCounter = m_FightingCoolDown;
 
             m_ShootTimer = m_ShootCooldown;
-        }
-        else if (moveInput.magnitude < 0.1f && playerInputActions.Actions.HeavyAttack.triggered && m_ShootTimer <= 0f && CanAttack)
-        {
-            Instantiate(bullet, m_Target.position, transform.rotation);
-            m_AnimatorController.SetTrigger("Range");
-            m_AnimatorController.SetBool("Fighting", true);
-            m_FightingCounter = m_FightingCoolDown;
+            /*if (moveInput.magnitude > 0.1f)
+            {
+                Instantiate(bullet, m_Target.position, transform.rotation);
+                m_AnimatorController.SetTrigger("Range");
+                m_AnimatorController.SetBool("Fighting", true);
+                m_FightingCounter = m_FightingCoolDown;
 
-            m_ShootTimer = m_ShootCooldown;
+                m_ShootTimer = m_ShootCooldown;
+            }
+            else if (moveInput.magnitude < 0.1f)
+            {
+                Instantiate(bullet, m_Target.position, transform.rotation);
+                m_AnimatorController.SetTrigger("Range");
+                m_AnimatorController.SetBool("Fighting", true);
+                m_FightingCounter = m_FightingCoolDown;
+
+                m_ShootTimer = m_ShootCooldown;
+            }*/
         }
+        
 
     }
     private void SwitchWeapon()
