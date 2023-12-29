@@ -30,7 +30,7 @@ public class MainScript : MonoBehaviour
     public Gradient m_HeathBarGradient;
     public Image m_FillLifeBar;
 
-    public Transform m_ControlPoint;
+    //public Transform m_ControlPoint;
 
     void Start()
     {

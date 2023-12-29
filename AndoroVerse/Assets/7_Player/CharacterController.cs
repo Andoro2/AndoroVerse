@@ -227,6 +227,7 @@ public class CharacterController : MonoBehaviour
                     if (m_InteractObject.GetComponent<Dialogue>().m_Follow)
                     {
                         m_InteractObject.gameObject.transform.parent = gameObject.transform;
+                        m_InteractObject.gameObject.transform.localPosition = new Vector3(0f, 0f, 0f);
                     }
                 }
             }

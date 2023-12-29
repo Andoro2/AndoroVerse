@@ -10,7 +10,7 @@ public class SettingsMenu : MonoBehaviour
 {
     public void NewGame()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
     }
 
     //RESOLUTION

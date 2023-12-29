@@ -4,20 +4,34 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    private CollectibleInventory CI;
-    // Start is called before the first frame update
+    //private CollectibleInventory CI;
+
     void Start()
     {
-        CI = GameObject.FindWithTag("GameController").gameObject.GetComponent<CollectibleInventory>();
+        //CI = GameObject.FindWithTag("GameController").gameObject.GetComponent<CollectibleInventory>();
     }
-
-    // Update is called once per frame
-    void Update()
+    public void QuitGame()
     {
-        
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #else
+                Application.Quit();
+        #endif
+    }
+    public string AndoroLink = "https://twitter.com/anderu2__";
+    public void LinkTwitterAndoro()
+    {
+        // Abrir el enlace en el navegador web predeterminado.
+        Application.OpenURL(AndoroLink);
+    }
+    public string JordiLink = "https://twitter.com/Byjcp0072";
+    public void LinkTwitterJordi()
+    {
+        // Abrir el enlace en el navegador web predeterminado.
+        Application.OpenURL(JordiLink);
     }
 
-    public void LoadCollect()
+    /*public void LoadCollect()
     {
         CollectibleData dataC = SaveLoadSystem.LoadCollect();
 
@@ -25,5 +39,5 @@ public class MainMenu : MonoBehaviour
         {
             CI.m_Collectibles[i] = dataC.CollectibleList[i];
         }
-    }
+    }*/
 }
