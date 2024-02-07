@@ -329,6 +329,7 @@ GameObject:
   - component: {fileID: 5113325213618831822}
   - component: {fileID: 7968276526247690634}
   - component: {fileID: 2045730951974602181}
+  - component: {fileID: 5123004109127558858}
   m_Layer: 6
   m_Name: DialoguePreFab
   m_TagString: Untagged
@@ -380,7 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a70909f5bf372ae42b78116e11e13eef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OneTimeOnly: 0
+  m_Once: 1
   m_CanMove: 0
   m_Follow: 0
   m_AutomaticDialogue: 0
@@ -389,6 +390,7 @@ MonoBehaviour:
   m_DialogueMenu: {fileID: 877659328981798172}
   m_Player: {fileID: 0}
   m_Speakers: []
+  ItemShineVFX: {fileID: 2802417561713743909}
 --- !u!65 &2045730951974602181
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -410,6 +412,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5123004109127558858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3029946908035785033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03197ed0db9e6a343bcded9a4334ab03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Once: 1
+  m_CanMove: 0
+  m_Follow: 0
+  m_AutomaticDialogue: 0
+  m_TextDisplay: {fileID: 1071884343211873982}
+  m_NameDisplay: {fileID: 3933141236634841580}
+  m_DialogueFrame: {fileID: 877659328981798172}
+  m_Player: {fileID: 0}
+  m_Index: 0
+  m_TextLines: []
 --- !u!1 &5903083456909761041
 GameObject:
   m_ObjectHideFlags: 0
@@ -1083,6 +1107,12 @@ PrefabInstance:
 --- !u!4 &894311824380555194 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1957556627024467840, guid: a067ecf3058310c429cde7350462f0a9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1676351422874204218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2802417561713743909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3578029984962355231, guid: a067ecf3058310c429cde7350462f0a9,
     type: 3}
   m_PrefabInstance: {fileID: 1676351422874204218}
   m_PrefabAsset: {fileID: 0}

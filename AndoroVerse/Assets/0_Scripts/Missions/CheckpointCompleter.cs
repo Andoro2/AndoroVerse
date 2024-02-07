@@ -37,7 +37,7 @@ public class CheckpointCompleter : MonoBehaviour
                 }
                 break;
             case CheckpointTypes.Dialogue:
-                if (gameObject.GetComponent<Dialogue>().enabled == false)
+                if (gameObject.GetComponent<DialogueSecondOption>().enabled == false)
                 {
                     return true;
                 }

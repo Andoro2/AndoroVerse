@@ -72,6 +72,17 @@ public class MainScript : MonoBehaviour
 
         m_HealthSlider.value = PlayerLifePoints;
         m_FillLifeBar.color = m_HeathBarGradient.Evaluate(m_HealthSlider.normalizedValue);
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("avanzar");
+            GetComponent<GameProgress>().AdvanceCheckpoint();
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Debug.Log("retrasar");
+            GetComponent<GameProgress>().BackCheckpoint();
+        }
     }
     public void TakeDamage(float DamageValue)
     {

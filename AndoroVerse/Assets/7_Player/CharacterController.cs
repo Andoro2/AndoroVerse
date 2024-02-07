@@ -149,18 +149,17 @@ public class CharacterController : MonoBehaviour
 
         m_ShootTimer = m_ShootCooldown;
     }
-
     private void Update()
     {
         m_Scepter.gameObject.transform.localScale = new Vector3(1, 1, 1);
         m_IsGrounded = Physics.CheckSphere(groundCheck.position, 0.25f, groundLayer);
 
         GameObject[] m_Dialogues = GameObject.FindGameObjectsWithTag("TextBox");
-        if(m_Dialogues.Any(TextBox => TextBox.activeSelf))
+        if (m_Dialogues.Any(TextBox => TextBox.activeSelf))
         {
             GameObject ActiveTextBox = m_Dialogues.FirstOrDefault(TextBox => TextBox.activeSelf);
 
-            if (ActiveTextBox.transform.parent.GetComponent<Dialogue>().m_CanMove)
+            if (ActiveTextBox.transform.parent.GetComponent<DialogueSecondOption>().m_CanMove)
             {
                 CharState = CharStates.Talking;
                 CanAttack = false;
@@ -213,9 +212,9 @@ public class CharacterController : MonoBehaviour
         {
             if (m_InteractObject.GetComponent<InteractionType>().IsDialogue())
             {
-                m_InteractObject.GetComponent<Dialogue>().InteractionManager();
+                m_InteractObject.GetComponent<DialogueSecondOption>().InteractionManager();
 
-                if (!m_InteractObject.GetComponent<Dialogue>().m_CanMove)
+                if (!m_InteractObject.GetComponent<DialogueSecondOption>().m_CanMove)
                 {
                     CharState = CharStates.Interacting;
                     CanAttack = false;
@@ -224,7 +223,7 @@ public class CharacterController : MonoBehaviour
                 {
                     //CharState = CharStates.Talking;
                     //CanAttack = true;
-                    if (m_InteractObject.GetComponent<Dialogue>().m_Follow)
+                    if (m_InteractObject.GetComponent<DialogueSecondOption>().m_Follow)
                     {
                         m_InteractObject.gameObject.transform.parent = gameObject.transform;
                         m_InteractObject.gameObject.transform.localPosition = new Vector3(0f, 0f, 0f);
@@ -272,20 +271,20 @@ public class CharacterController : MonoBehaviour
         {
             m_InteractObject = colliders[0].gameObject;
 
-            if (m_InteractObject.GetComponent<Dialogue>() != null && !m_InteractObject.GetComponent<Dialogue>().m_DialogueMenu.activeSelf)
+            if (m_InteractObject.GetComponent<DialogueSecondOption>() != null && !m_InteractObject.GetComponent<DialogueSecondOption>().m_DialogueFrame.activeSelf)
             {
-                if (m_InteractObject.GetComponent<Dialogue>().m_AutomaticDialogue)
+                if (m_InteractObject.GetComponent<DialogueSecondOption>().m_AutomaticDialogue)
                 {
-                    if (m_InteractObject.GetComponent<Dialogue>().m_Follow)
+                    if (m_InteractObject.GetComponent<DialogueSecondOption>().m_Follow)
                     {
                         m_InteractObject.gameObject.transform.parent = gameObject.transform;
                     }
-                    m_InteractObject.GetComponent<Dialogue>().StartDialogue();
+                    m_InteractObject.GetComponent<DialogueSecondOption>().InteractionManager();
                     return true;
                 }
             }
             
-            if(m_InteractObject.GetComponent<Dialogue>() != null && m_InteractObject.GetComponent<Dialogue>().m_AutomaticDialogue)
+            if(m_InteractObject.GetComponent<DialogueSecondOption>() != null && m_InteractObject.GetComponent<DialogueSecondOption>().m_AutomaticDialogue)
             {
                 m_InteractionText.text = "";
             }
@@ -305,7 +304,7 @@ public class CharacterController : MonoBehaviour
         {
             if (m_InteractObject.GetComponent<InteractionType>().IsDialogue())
             {
-                m_InteractObject.GetComponent<Dialogue>().CutConversation();
+                m_InteractObject.GetComponent<DialogueSecondOption>().CutConversation();
             }
             else if (m_InteractObject.GetComponent<InteractionType>().IsObserve())
             {
@@ -1040,11 +1039,8 @@ public class CharacterController : MonoBehaviour
 
     //DASH FUNCTION
     private SkinnedMeshRenderer[] m_SkinnedMeshRenderers;
-
     private GameObject[] m_WeaponsArray;
-
     private SkinnedMeshRenderer[] m_SkinnedMeshRenderersManual;
-
     public Material m_DashMaterial;
     private IEnumerator PerformDash(Vector2 dashDirection)
     {
@@ -1247,6 +1243,30 @@ public class CharacterController : MonoBehaviour
             m_AnimatorController.SetTrigger("Death");
             Debug.Log("Muelto");
             transform.GetComponent<CharacterController>().enabled = false;
+        }
+    }
+    void OnGUI()
+    {
+        // Configuración del estilo del cuadro de texto
+        GUIStyle estiloTexto = new GUIStyle();
+        estiloTexto.fontSize = 150;
+        estiloTexto.normal.textColor = Color.white;
+
+
+
+        // Posición y tamaño del cuadro de texto
+        Rect rectanguloTexto = new Rect(Screen.width / 2, 500, 200, 50);
+        if(CharState == CharStates.Moving)
+        {
+            GUI.Label(rectanguloTexto, "Moving", estiloTexto);
+        }
+        else if (CharState == CharStates.Interacting)
+        {
+            GUI.Label(rectanguloTexto, "Interacting", estiloTexto);
+        }
+        else if (CharState == CharStates.Talking)
+        {
+            GUI.Label(rectanguloTexto, "Talking", estiloTexto);
         }
     }
 }

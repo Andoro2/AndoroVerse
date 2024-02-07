@@ -47,6 +47,10 @@ public class GameProgress : MonoBehaviour
     {
         m_CheckPointIndex++;
     }
+    public void BackCheckpoint()
+    {
+        m_CheckPointIndex--;
+    }
     public void AdvanceMission()
     {
         m_MissionIndex++;

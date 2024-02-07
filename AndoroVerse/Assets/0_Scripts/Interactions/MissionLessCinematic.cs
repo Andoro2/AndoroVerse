@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
+using System.Linq;
 
 public class MissionLessCinematic : MonoBehaviour
 {
@@ -27,6 +28,12 @@ public class MissionLessCinematic : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            GameObject[] m_Dialogues = GameObject.FindGameObjectsWithTag("TextBox");
+            if (m_Dialogues.Any(TextBox => TextBox.activeSelf))
+            {
+                GameObject ActiveTextBox = m_Dialogues.FirstOrDefault(TextBox => TextBox.activeSelf);
+            }
+
             m_VidPlayer.clip = m_Cinematic;
             m_VidPlayer.Play();
             m_VidPlayer.time = 0f;

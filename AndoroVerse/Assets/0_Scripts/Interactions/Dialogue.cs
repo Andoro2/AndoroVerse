@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 
 [System.Serializable]
 public class Speaker
 {
+    // Clase para incluir la imagen del personaje que habla, el nombre, el diálogo en si y audio por si lo metemos en algun momento
     public string SpeakerName;
     public GameObject SpeakerImg;
     [TextArea(3, 10)]
@@ -15,7 +17,10 @@ public class Speaker
 
 public class Dialogue : MonoBehaviour
 {
-    public bool m_OneTimeOnly = true, m_CanMove = false, m_Follow = false, m_AutomaticDialogue = false;
+    public bool m_Once = true, // Para que solo se pueda interactuar una vez
+        m_CanMove = false, // Puede o no moverse mientras el diálogo esté en funcionamiento
+        m_Follow = false, // Para que el diálogo siga funcionando aunque el personaje se mueva, si no cuando se aleja el diálogo se cierra
+        m_AutomaticDialogue = false; // Determina si el diálogo salta automático o el jugador debe darle a la tecla de interacción
 
     public TextMeshProUGUI m_TextDisplay, m_NameDisplay;
 
@@ -27,6 +32,8 @@ public class Dialogue : MonoBehaviour
     private float m_TypeSpeed = 0.02f;
 
     private AudioSource m_AudioS;
+
+    public GameObject ItemShineVFX; // Efecto visual de brillo para que se vea que hay posibilidad de interactuar
 
     public void Start()
     {
@@ -48,8 +55,8 @@ public class Dialogue : MonoBehaviour
     public void StartDialogue()
     {
         m_DialogueMenu.SetActive(true);
-        transform.Find("ItemShineVFX").gameObject.SetActive(false);
-        //m_Player.transform.GetComponent<CharacterController>().ToTalking();
+        ItemShineVFX.SetActive(false);
+
         m_Index = 0;
         m_NameDisplay.text = m_Speakers[m_Index].SpeakerName;
         m_TextDisplay.text = "";
@@ -63,9 +70,11 @@ public class Dialogue : MonoBehaviour
         m_Speakers[m_Index].SpeakerImg.SetActive(true);
 
         StartCoroutine(Type());
+        m_AutomaticDialogue = false;
     }
     IEnumerator Type()
     {
+        // Corrutina para que escriba el texto en el cuadro caracter por caracter
         foreach(char c in m_Speakers[m_Index].Line.ToCharArray())
         {
             if (m_TextDisplay.text != m_Speakers[m_Index].Line)
@@ -88,12 +97,14 @@ public class Dialogue : MonoBehaviour
             {
                 m_Speakers[m_Index].SpeakerImg.SetActive(false);
                 m_Index++;
+
                 if (m_Speakers[m_Index].Audio != null)
                 {
                     m_AudioS.Stop();
                     m_AudioS.clip = m_Speakers[m_Index].Audio;
                     m_AudioS.Play();
                 }
+
                 m_Speakers[m_Index].SpeakerImg.SetActive(true);
                 m_NameDisplay.text = m_Speakers[m_Index].SpeakerName;
                 m_TextDisplay.text = "";
@@ -104,18 +115,20 @@ public class Dialogue : MonoBehaviour
                 m_TextDisplay.text = "";
 
                 m_DialogueMenu.SetActive(false);
-                //m_Player.transform.GetComponent<CharacterController>().ToMoving();
 
                 m_AudioS.Stop();
 
-                if (m_OneTimeOnly)
+                if (m_Once)
                 {
                     m_DialogueMenu.SetActive(false);
                     GetComponent<InteractionType>().enabled = false;
                     GetComponent<BoxCollider>().enabled = false;
-                    GetComponent<Dialogue>().enabled = false; //Destroy(gameObject);
+                    GetComponent<Dialogue>().enabled = false;
+
+                    //CutConversation();
+                    //Destroy(gameObject,0.5f);
                 }
-                else transform.Find("ItemShineVFX").gameObject.SetActive(true);
+                else ItemShineVFX.SetActive(true);
 
                 if (!m_CanMove) m_CanMove = true;
             }
@@ -123,9 +136,9 @@ public class Dialogue : MonoBehaviour
     }
     public void CutConversation()
     {
+        // Para cuando se aleje de la zona en la que el diálogo debe estar activo
         m_TextDisplay.text = "";
         m_AudioS.Stop();
         m_DialogueMenu.SetActive(false);
-        //m_Player.transform.GetComponent<CharacterController>().ToMoving();
     }
 }

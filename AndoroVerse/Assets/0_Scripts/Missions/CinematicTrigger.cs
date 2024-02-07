@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class CinematicTrigger : MonoBehaviour
 {
     //public int m_MissionIndex;
     public float m_VidDuration;
+    public GameObject m_VidPlayerObject;
     private GameObject m_InGameUI;
 
     GameProgress GP;
@@ -23,6 +25,8 @@ public class CinematicTrigger : MonoBehaviour
 
     void Start()
     {
+        m_VidPlayerObject = m_VidPlayer.gameObject;
+        
         m_InGameUI = GameObject.FindWithTag("UI").gameObject.transform.GetChild(0).gameObject;
         GP = GameObject.FindWithTag("GameController").gameObject.GetComponent<GameProgress>();
         m_Player = GameObject.FindWithTag("Player").gameObject;
@@ -33,6 +37,12 @@ public class CinematicTrigger : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
+            GameObject[] m_Dialogues = GameObject.FindGameObjectsWithTag("TextBox");
+            if (m_Dialogues.Any(TextBox => TextBox.activeSelf))
+            {
+                GameObject ActiveTextBox = m_Dialogues.FirstOrDefault(TextBox => TextBox.activeSelf);
+            }
+
             m_VidPlayer.clip = m_Cinematic;
             m_VidPlayer.Play();
             m_VidPlayer.time = 0f;
@@ -72,6 +82,8 @@ public class CinematicTrigger : MonoBehaviour
         if(m_CheckpointAdvance) GP.AdvanceCheckpoint();
         if (m_MissionAdvance) GP.AdvanceMission();
         if (m_NextScene)SceneManager.LoadScene(m_SceneIndex);
+        //m_VidPlayer = null;
+        Destroy(m_VidPlayerObject);
         Destroy(gameObject);
     }
 }
