@@ -9,7 +9,7 @@ public class EnemyDamage : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            MainScript.PlayerLifePoints -= HitDmg;
+            MainScript.TakeDamage(HitDmg);
             Vector3 AttackVector = other.transform.position - transform.position;
 
             Vector3 KnockBackDirection = new(AttackVector.x, 0f, AttackVector.z);

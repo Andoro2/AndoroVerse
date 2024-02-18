@@ -15,9 +15,12 @@ public class GameProgress : MonoBehaviour
     public int m_MissionIndex;
     public Mission[] m_Missions;
 
+    public int m_CheckPointOnEnter, m_MissionOnEnter;
+
     void Start()
     {
         m_ActiveMission = m_Missions[m_MissionIndex];
+        GetIndexsOnEnter();
     }
 
     void Update()
@@ -54,6 +57,21 @@ public class GameProgress : MonoBehaviour
     public void AdvanceMission()
     {
         m_MissionIndex++;
+    }
+    public void GetIndexsOnEnter()
+    {
+        m_MissionOnEnter = m_MissionIndex;
+        m_CheckPointOnEnter = m_CheckPointIndex;
+    }
+    public void SetIndexOnReload()
+    {
+        m_MissionIndex = m_MissionOnEnter;
+        m_CheckPointIndex = m_CheckPointOnEnter;
+    }
+    public void ResetIndex()
+    {
+        m_MissionIndex = 0;
+        m_CheckPointIndex = 0;
     }
 }
 [System.Serializable]

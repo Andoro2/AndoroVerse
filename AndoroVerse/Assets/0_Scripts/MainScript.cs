@@ -61,10 +61,10 @@ public class MainScript : MonoBehaviour
         PlayerShockDamage = m_PlayerShockDamage;
         PlayerKBForce = m_PlayerKBForce;
 
-        if (Input.GetKeyDown(KeyCode.R))
+        /*if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+        }*/
         if (PlayerLifePoints <= 0f)
         {
            Death();
@@ -73,7 +73,7 @@ public class MainScript : MonoBehaviour
         m_HealthSlider.value = PlayerLifePoints;
         m_FillLifeBar.color = m_HeathBarGradient.Evaluate(m_HealthSlider.normalizedValue);
 
-        if (Input.GetKeyDown(KeyCode.P))
+        /*if (Input.GetKeyDown(KeyCode.P))
         {
             Debug.Log("avanzar");
             GetComponent<GameProgress>().AdvanceCheckpoint();
@@ -82,16 +82,22 @@ public class MainScript : MonoBehaviour
         {
             Debug.Log("retrasar");
             GetComponent<GameProgress>().BackCheckpoint();
-        }
+        }*/
     }
-    public void TakeDamage(float DamageValue)
+    static public void TakeDamage(float DamageValue)
     {
         PlayerLifePoints -= DamageValue;
-        Debug.Log(PlayerLifePoints);
     }
     public void Heal(float HealthValue)
     {
-        PlayerLifePoints += HealthValue;
+        if((PlayerLifePoints + HealthValue) >= MaxPlayerLifePoints)
+        {
+            PlayerLifePoints = MaxPlayerLifePoints;
+        }
+        else
+        {
+            PlayerLifePoints += HealthValue;
+        }
     }
     public void Death()
     {
@@ -120,18 +126,10 @@ public class MainScript : MonoBehaviour
         GameUI.transform.Find("DeathScreen").gameObject.SetActive(true);
         PlayerLifePoints = MaxPlayerLifePoints;
     }
-    public void RestoreLife()
+    public static void RestoreLife()
     {
         PlayerLifePoints = MaxPlayerLifePoints;
     }
-    /*private void OnGUI()
-    {
-        //GUI.skin = mySkin;
-
-        GUI.Label(new Rect(Screen.width/2, 100, 150, 80), "Vida: " + PlayerLifePoints);
-
-        //GUI.DrawTexture(new Rect(Screen.width / 4, Screen.height / 4, 80, 80), coinImg);
-    }*/
     public void LoadGame()
     {
         PlayerData dataP = SaveLoadSystem.LoadGame();

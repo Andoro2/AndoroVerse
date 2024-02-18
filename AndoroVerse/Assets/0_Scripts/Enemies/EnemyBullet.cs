@@ -25,7 +25,7 @@ public class EnemyBullet : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            MainScript.PlayerLifePoints -= BulletDmg;
+            MainScript.TakeDamage(BulletDmg);
             Destroy(this.gameObject);
         }
         if (other.gameObject.CompareTag("Terrain"))

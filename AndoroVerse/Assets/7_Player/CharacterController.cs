@@ -62,7 +62,8 @@ public class CharacterController : MonoBehaviour
     public bool CanAttack = false;
 
     //WEAPONS POSITIONING
-    private GameObject m_ShieldRDrawn, m_ShieldRSaved, m_ShieldLDrawn,
+    private GameObject m_ShieldR, m_ShieldL,
+        m_ShieldRDrawn, m_ShieldRSaved, m_ShieldLDrawn,
         m_ShieldLSaved, m_Sword, m_SwordBoneSaved, m_SwordBoneDrawn,
         m_Scepter, m_ScepterBoneDrawn;
 
@@ -82,7 +83,7 @@ public class CharacterController : MonoBehaviour
     public AudioClip m_WalkConcreteSFX, m_WalkGrassSFX, m_WalkWoodSFX,
         m_DrawSwordSFX, m_SwordSwoosh1, m_SwordSwoosh2, m_MetallicImpactSFX, m_FlameThrowerIgniteSFX, m_FlameThrowerFireSFX;
 
-
+    Skill Escudos;
     private void Awake()
     {
         playerInputActions = new InputManager();
@@ -111,9 +112,11 @@ public class CharacterController : MonoBehaviour
         m_Inventario = GameObject.FindWithTag("GameController").GetComponent<Inventory>();
         m_Controller = GetComponent<UnityEngine.CharacterController>();
 
+        m_ShieldL = transform.Find(LeftShieldPath).gameObject;
         m_ShieldLDrawn = transform.Find(LeftShieldPath + "ShieldDrawn").gameObject;
         m_ShieldLSaved = transform.Find(LeftShieldPath + "Shield_Saved").gameObject;
 
+        m_ShieldR = transform.Find(RightShieldPath).gameObject;
         m_ShieldRDrawn = transform.Find(RightShieldPath + "ShieldDrawn").gameObject;
         m_ShieldRSaved = transform.Find(RightShieldPath + "Shield_Saved").gameObject;
 
@@ -148,6 +151,11 @@ public class CharacterController : MonoBehaviour
         m_ScepterAS = transform.Find("Body").Find("Weapons").Find("WeaponAudioSources").Find("AS_FlameThrower").GetComponent<AudioSource>();
 
         m_ShootTimer = m_ShootCooldown;
+
+        foreach(Skill Habilidad in GameObject.FindWithTag("GameController").GetComponent<Inventory>().m_Skills)
+        {
+            if (Habilidad.SkillName == "Shields") Escudos = Habilidad;
+        }
     }
     private void Update()
     {
@@ -204,6 +212,13 @@ public class CharacterController : MonoBehaviour
             if(ActiveWeapon == Weapons.Sword) HeavyAttack();
             transform.Find("Body/Weapons/ScepterHeavyVFX/ScepterHeavyVFX").gameObject.GetComponent<VisualEffect>().Play();
             Look();
+        }
+
+        if (Escudos.Available && !m_ShieldL.activeSelf && !m_ShieldR.activeSelf)
+        {
+            m_ShieldL.gameObject.SetActive(true);
+
+            m_ShieldR.gameObject.SetActive(true);
         }
     }
     private void Interact()
@@ -287,6 +302,10 @@ public class CharacterController : MonoBehaviour
             if(m_InteractObject.GetComponent<DialogueSecondOption>() != null && m_InteractObject.GetComponent<DialogueSecondOption>().m_AutomaticDialogue)
             {
                 m_InteractionText.text = "";
+                if (!m_InteractObject.GetComponent<DialogueSecondOption>().m_CanMove)
+                {
+                    CharState = CharStates.Interacting;
+                }
             }
             else
             {
@@ -321,6 +340,14 @@ public class CharacterController : MonoBehaviour
             return false;
         }
     }
+    public void BackToPlay()
+    {
+        if (CharState == CharStates.Interacting) CharState = CharStates.Moving;
+    }
+    public void OutOfPlay()
+    {
+        CharState = CharStates.Interacting;
+    }
     private void FightingTimer()
     {
         if(m_FightingCounter > 0f)
@@ -341,18 +368,15 @@ public class CharacterController : MonoBehaviour
                 m_ShieldLSaved.SetActive(true);
             }
             
-
             if (m_Scepter.activeSelf)
             {
                 m_Scepter.GetComponent<ScepterWAnim>().ScepterSave();
             }
 
-            //m_Scepter.SetActive(false);
             if (ActiveWeapon == Weapons.Sword)
             {
                 StartCoroutine("SaveSword");
             }
-            //m_Sword.gameObject.transform.SetParent(m_SwordBoneSaved.transform);
 
             if (m_AnimatorController.GetBool("Fighting"))
             {
@@ -397,8 +421,6 @@ public class CharacterController : MonoBehaviour
                         StartCoroutine("AudioFire");
                         m_ScepterAS.loop = true;
                         if (!m_ScepterAS.isPlaying) m_ScepterAS.Play();
-
-                        //transform.Find("Body/Weapons/ScepterHeavyVFX/ScepterHeavyVFX").gameObject.SetActive(true);
                     }
                     else m_ScepterAS.loop = false;
                     break;
@@ -1170,6 +1192,7 @@ public class CharacterController : MonoBehaviour
             yield return null;
         }
     }
+
     //RECIEVE DAMAGE KNOCKBACK
     private float m_KnockBackTimer, m_KnockBackTime = 0.1f, m_KnockBackForce = 20f;
     public void TakeDamage(Vector3 KnockBackDir)
@@ -1241,18 +1264,16 @@ public class CharacterController : MonoBehaviour
         {
             CharState = CharStates.Dead;
             m_AnimatorController.SetTrigger("Death");
-            Debug.Log("Muelto");
+            
             transform.GetComponent<CharacterController>().enabled = false;
         }
     }
-    void OnGUI()
+    /*void OnGUI()
     {
         // Configuración del estilo del cuadro de texto
         GUIStyle estiloTexto = new GUIStyle();
         estiloTexto.fontSize = 150;
         estiloTexto.normal.textColor = Color.white;
-
-
 
         // Posición y tamaño del cuadro de texto
         Rect rectanguloTexto = new Rect(Screen.width / 2, 500, 200, 50);
@@ -1268,5 +1289,5 @@ public class CharacterController : MonoBehaviour
         {
             GUI.Label(rectanguloTexto, "Talking", estiloTexto);
         }
-    }
+    }*/
 }

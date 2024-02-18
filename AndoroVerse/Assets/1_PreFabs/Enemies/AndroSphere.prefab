@@ -406,7 +406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EnemyState: 0
   m_NavMeshAgent: {fileID: 0}
-  DetectionRange: 25
+  DetectionRange: 500
   m_AttackDamage: 10
   m_AttackRange: 2
   m_AttackCD: 2.5
@@ -444,7 +444,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 1.34
-  m_Speed: 5
+  m_Speed: 7.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

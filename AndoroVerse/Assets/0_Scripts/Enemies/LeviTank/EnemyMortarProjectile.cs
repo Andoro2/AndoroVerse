@@ -59,7 +59,7 @@ public class EnemyMortarProjectile : MonoBehaviour
                 if (collider.gameObject.CompareTag("Player"))
                 {
 
-                    MainScript.PlayerLifePoints -= m_ExplosionDmg;
+                    MainScript.TakeDamage(m_ExplosionDmg);
                     Vector3 AttackVector = collider.transform.position - transform.position;
 
                     Vector3 KnockBackDirection = new(AttackVector.x, 0f, AttackVector.z);

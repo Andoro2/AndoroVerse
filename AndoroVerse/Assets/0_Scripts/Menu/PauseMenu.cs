@@ -10,14 +10,13 @@ public class PauseMenu : MonoBehaviour
     private InputManager playerInputActions;
 
     public static bool GameIsPaused = false;
-    public GameObject m_PauseMenuUI;
-    private MainScript MS;
-    private CollectibleInventory CI;
-
+    public GameObject m_PauseMenuUI, GC;
+    public MainScript MS;
+    public CollectibleInventory CI;
+    public GameProgress GP;
     private void Start()
     {
-        MS = GameObject.FindWithTag("GameController").gameObject.GetComponent<MainScript>();
-        CI = GameObject.FindWithTag("GameController").gameObject.GetComponent<CollectibleInventory>();
+        
     }
     private void Update()
     {
@@ -61,12 +60,20 @@ public class PauseMenu : MonoBehaviour
     }
     public void RestartLevel()
     {
-        MS.RestoreLife();
+        MainScript.RestoreLife();
+        GP.SetIndexOnReload();
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     private void Awake()
     {
         playerInputActions = new InputManager();
+
+        GC = GameObject.FindWithTag("GameController");
+        MS = GC.GetComponent<MainScript>();
+        CI = GC.GetComponent<CollectibleInventory>();
+        GP = GC.GetComponent<GameProgress>();
+        GP.GetIndexsOnEnter();
     }
     private void OnEnable()
     {

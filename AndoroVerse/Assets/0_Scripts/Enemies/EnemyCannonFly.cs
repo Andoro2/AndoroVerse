@@ -74,7 +74,7 @@ public class EnemyCannonFly : MonoBehaviour
         else if (Distance2Player >= m_MaxDistanceToPlayer)
         {
             Vector3 OffensiveDir = m_Player.position - transform.position;
-            transform.position += m_RetreatSpeed * Time.deltaTime * new Vector3(OffensiveDir.x, 0f, OffensiveDir.z).normalized;
+            transform.position += m_OffenseSpeed * Time.deltaTime * new Vector3(OffensiveDir.x, 0f, OffensiveDir.z).normalized;
             m_AnimBody.SetBool("Moving", true);
         }
     }

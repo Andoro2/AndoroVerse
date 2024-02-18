@@ -6,7 +6,11 @@ public class EnemySpawn : MonoBehaviour
 {
     public GameObject m_EnemyToSpawn, m_Cylinder, m_Materialize;
     public float m_VFXTime = 3f;
-    
+    public bool m_AutomaticSpawn = false;
+    void Start()
+    {
+        if (m_AutomaticSpawn) SpawnEnemy();
+    }
     public void SpawnEnemy()
     {
         StartCoroutine("Spawn");

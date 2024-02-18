@@ -10,6 +10,10 @@ public class SettingsMenu : MonoBehaviour
 {
     public void NewGame()
     {
+        if(GameObject.FindWithTag("GameController") != null)
+        {
+            GameObject.FindWithTag("GameController").GetComponent<GameProgress>().ResetIndex();
+        }
         SceneManager.LoadScene(1);
     }
 

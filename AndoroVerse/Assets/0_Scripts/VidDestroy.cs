@@ -16,8 +16,6 @@ public class VidDestroy : MonoBehaviour
 
     public bool m_CheckpointAdvance = false, m_MissionAdvance = false, m_NextScene = false;
     public int m_SceneIndex;
-
-    private bool m_Moved = false;
     void Start()
     {
         GameUI = GameObject.FindWithTag("UI").gameObject;
@@ -37,6 +35,7 @@ public class VidDestroy : MonoBehaviour
     {
         CC = GameObject.FindWithTag("Player").GetComponent<CharacterController>();
         CC.enabled = false;
+        CC.OutOfPlay();
     }
 
     void OnVideoEnd(VideoPlayer VP)
@@ -68,6 +67,7 @@ public class VidDestroy : MonoBehaviour
         m_VidPlayer.enabled = false;
 
         CC.enabled = true;
+        CC.BackToPlay();
 
         Destroy(m_VidObject);
 

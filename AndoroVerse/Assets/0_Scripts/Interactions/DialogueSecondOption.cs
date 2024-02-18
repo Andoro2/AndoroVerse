@@ -30,14 +30,16 @@ public class DialogueSecondOption : MonoBehaviour
     public TextLine[] m_TextLines;
 
     GameProgress GP;
+    CharacterController CC;
 
-    private GameObject ItemShineVFX; // Efecto visual de brillo para que se vea que hay posibilidad de interactuar
+    public GameObject ItemShineVFX; // Efecto visual de brillo para que se vea que hay posibilidad de interactuar
 
     public void Start()
     {
         m_Player = GameObject.FindGameObjectWithTag("Player").gameObject;
         GP = GameObject.FindWithTag("GameController").gameObject.GetComponent<GameProgress>();
-        ItemShineVFX = transform.Find("ItemShineVFX").gameObject;
+        if (transform.Find("ItemShineVFX").gameObject != null) ItemShineVFX = transform.Find("ItemShineVFX").gameObject;
+        CC = m_Player.GetComponent<CharacterController>();
     }
     public void Update()
     {
@@ -48,7 +50,7 @@ public class DialogueSecondOption : MonoBehaviour
     }
     public void InteractionManager()
     {
-        if (ItemShineVFX.activeSelf) ItemShineVFX.SetActive(false);
+        if (ItemShineVFX != null) if (ItemShineVFX.activeSelf) ItemShineVFX.SetActive(false);
         if (m_Index == 0) // Primera interacción
         {
             Transform CharPics = transform.Find("DialogueCanvas").transform.Find("CharPic").transform;
@@ -57,7 +59,6 @@ public class DialogueSecondOption : MonoBehaviour
                 Transform CharPic = CharPics.GetChild(i);
                 CharPic.gameObject.SetActive(false);
             }
-            
 
             m_DialogueFrame.SetActive(true);
             m_NameDisplay.text = m_TextLines[0].SpeakerName;
@@ -82,12 +83,17 @@ public class DialogueSecondOption : MonoBehaviour
 
                 if (m_Once)
                 {
-                    GetComponent<DialogueSecondOption>().enabled = false;
+                    Destroy(ItemShineVFX);
                     GetComponent<Collider>().enabled = false;
+                    GetComponent<DialogueSecondOption>().enabled = false;
                     if (m_Follow) Destroy(gameObject, 0.2f);
                 }
+                else
+                {
+                    ItemShineVFX.SetActive(true);
+                }
 
-                else if (ItemShineVFX.activeSelf) ItemShineVFX.SetActive(true);
+                CC.BackToPlay();
             }
         }
     }
@@ -95,6 +101,6 @@ public class DialogueSecondOption : MonoBehaviour
     {
         m_Index = 0;
         m_DialogueFrame.SetActive(false);
-        ItemShineVFX.SetActive(true);
+        if(!m_Once) ItemShineVFX.SetActive(true);
     }
 }

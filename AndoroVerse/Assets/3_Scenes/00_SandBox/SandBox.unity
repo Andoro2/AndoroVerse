@@ -791,6 +791,7 @@ MonoBehaviour:
   - SpeakerName: HechiDoro
     SpeakerImg: {fileID: 1705597463}
     Line: Linea cuatro
+  ItemShineVFX: {fileID: 0}
 --- !u!1 &173984539 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8293031185805114852, guid: 9b588eecac382bf4eac5495263005855,
@@ -2253,7 +2254,7 @@ PrefabInstance:
     - target: {fileID: 6012072422664613838, guid: d0bac61d2c69914428663cc31331f5bf,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7968276526247690634, guid: d0bac61d2c69914428663cc31331f5bf,
         type: 3}
@@ -4733,10 +4734,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03197ed0db9e6a343bcded9a4334ab03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Once: 0
+  m_Once: 1
   m_CanMove: 0
   m_Follow: 0
-  m_AutomaticDialogue: 0
+  m_AutomaticDialogue: 1
   m_TextDisplay: {fileID: 1130521808}
   m_NameDisplay: {fileID: 1595833000}
   m_DialogueFrame: {fileID: 773402884}
@@ -4755,6 +4756,7 @@ MonoBehaviour:
   - SpeakerName: Sorcerer
     SpeakerImg: {fileID: 71286428}
     Line: Linea cuatro
+  ItemShineVFX: {fileID: 0}
 --- !u!1 &878883783 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9061726338123592598, guid: 0b3bdaa61cec23641835028dc46a7164,
@@ -5435,6 +5437,7 @@ MonoBehaviour:
   - SpeakerName: BaseSalinas
     SpeakerImg: {fileID: 1648155125}
     Line: Linea cuatro
+  ItemShineVFX: {fileID: 0}
 --- !u!1001 &995349258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6983,7 +6986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1183577781
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9013,7 +9016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1683358840
 Transform:
   m_ObjectHideFlags: 0
@@ -9022,7 +9025,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1683358839}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.5, y: 0, z: -0.8}
+  m_LocalPosition: {x: -1.01, y: 0, z: -13.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9187,6 +9190,7 @@ MonoBehaviour:
   - SpeakerName: SorcererAndoro
     SpeakerImg: {fileID: 1200618216}
     Line: Linea cuatro
+  ItemShineVFX: {fileID: 0}
 --- !u!1 &1810302789 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 774368052444383260, guid: d33e413845b1a824088342f612fe5d9b,
@@ -11471,7 +11475,7 @@ PrefabInstance:
     - target: {fileID: 6172769617222913429, guid: 1ef33e693a3d5b0488b258566fcad8fb,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7819680038515552034, guid: 1ef33e693a3d5b0488b258566fcad8fb,
         type: 3}
@@ -12223,7 +12227,7 @@ PrefabInstance:
     - target: {fileID: 516788398475867993, guid: 1d3ca64a4bebacf4a9b342384ebd47a8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -53.97
+      value: 30.3
       objectReference: {fileID: 0}
     - target: {fileID: 516788398475867993, guid: 1d3ca64a4bebacf4a9b342384ebd47a8,
         type: 3}
