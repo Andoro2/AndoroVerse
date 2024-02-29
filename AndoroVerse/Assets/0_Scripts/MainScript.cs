@@ -9,8 +9,6 @@ public class MainScript : MonoBehaviour
     private enum GameStates { Exploring, Combating, Cinematic };
     [SerializeField] private GameStates GameState = GameStates.Exploring;
 
-    private GameObject m_Player;
-
     public static float MaxPlayerLifePoints = 100f,
         PlayerLifePoints,
         PlayerMeleDamage,
@@ -30,16 +28,10 @@ public class MainScript : MonoBehaviour
     public Gradient m_HeathBarGradient;
     public Image m_FillLifeBar;
 
-    //public Transform m_ControlPoint;
-
     void Start()
-    {
-        //CI = GameObject.FindWithTag("GameController").gameObject.GetComponent<CollectibleInventory>();
-        
-        if(UI == null) FindUI();
+    {if(UI == null) FindUI();
 
         CI = GetComponent<CollectibleInventory>();
-        m_Player = GameObject.FindGameObjectWithTag("Player");
 
         PlayerLifePoints = MaxPlayerLifePoints;
 
@@ -61,32 +53,40 @@ public class MainScript : MonoBehaviour
         PlayerShockDamage = m_PlayerShockDamage;
         PlayerKBForce = m_PlayerKBForce;
 
-        /*if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }*/
         if (PlayerLifePoints <= 0f)
         {
-           Death();
+            GameObject GameUI = GameObject.FindWithTag("UI");
+            GameUI.transform.Find("InGameUI").gameObject.SetActive(false);
+            GameUI.transform.Find("DeathScreen").gameObject.SetActive(true);
+            PlayerLifePoints = MaxPlayerLifePoints;
+
+            GameObject[] m_Enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject Enemy in m_Enemies)
+            {
+                if (Enemy.gameObject.GetComponent<EnemyAndroSphere>() != null)
+                {
+                    Enemy.gameObject.GetComponent<EnemyAndroSphere>().enabled = false;
+                }
+                else if (Enemy.gameObject.GetComponent<EnemyCannonFly>() != null)
+                {
+                    Enemy.gameObject.GetComponent<EnemyCannonFly>().enabled = false;
+                }
+                else if (Enemy.gameObject.GetComponent<EnemyLeviTank>() != null)
+                {
+                    Enemy.gameObject.GetComponent<EnemyLeviTank>().enabled = false;
+                }
+            }
         }
 
         m_HealthSlider.value = PlayerLifePoints;
         m_FillLifeBar.color = m_HeathBarGradient.Evaluate(m_HealthSlider.normalizedValue);
-
-        /*if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log("avanzar");
-            GetComponent<GameProgress>().AdvanceCheckpoint();
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Debug.Log("retrasar");
-            GetComponent<GameProgress>().BackCheckpoint();
-        }*/
     }
     static public void TakeDamage(float DamageValue)
     {
-        PlayerLifePoints -= DamageValue;
+        if (PlayerLifePoints > 0)
+        {
+            PlayerLifePoints -= DamageValue;
+        }
     }
     public void Heal(float HealthValue)
     {
@@ -99,33 +99,6 @@ public class MainScript : MonoBehaviour
             PlayerLifePoints += HealthValue;
         }
     }
-    public void Death()
-    {
-        if(m_Player == null) m_Player = GameObject.FindGameObjectWithTag("Player");
-        m_Player.transform.GetComponent<CharacterController>().Death();
-
-        GameObject[] m_Enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject Enemy in m_Enemies)
-        {
-            if(Enemy.gameObject.GetComponent<EnemyAndroSphere>() != null)
-            {
-                Enemy.gameObject.GetComponent<EnemyAndroSphere>().enabled = false;
-            }
-            else if (Enemy.gameObject.GetComponent<EnemyCannonFly>() != null)
-            {
-                Enemy.gameObject.GetComponent<EnemyCannonFly>().enabled = false;
-            }
-            else if (Enemy.gameObject.GetComponent<EnemyLeviTank>() != null)
-            {
-                Enemy.gameObject.GetComponent<EnemyLeviTank>().enabled = false;
-            }
-        }
-
-        GameObject GameUI = GameObject.FindWithTag("UI");
-        GameUI.transform.Find("InGameUI").gameObject.SetActive(false);
-        GameUI.transform.Find("DeathScreen").gameObject.SetActive(true);
-        PlayerLifePoints = MaxPlayerLifePoints;
-    }
     public static void RestoreLife()
     {
         PlayerLifePoints = MaxPlayerLifePoints;
@@ -135,11 +108,7 @@ public class MainScript : MonoBehaviour
         PlayerData dataP = SaveLoadSystem.LoadGame();
 
         PlayerLifePoints = dataP.PlayerHealth;
-        /*if(data.ControlPoint != null)
-        {
-            m_Player.transform.position = data.ControlPoint.transform.position;
-        }*/
-        //SceneManager.LoadScene(data.SceneIndex);
+
         LoadCollect();
     }
     public void LoadCollect()

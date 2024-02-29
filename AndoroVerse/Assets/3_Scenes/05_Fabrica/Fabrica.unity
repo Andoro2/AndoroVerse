@@ -21279,6 +21279,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 2e45c19250cae2a4bad37199bd2618c4, type: 2}
     - target: {fileID: -7383725084242248110, guid: a8ce1fd32e681644ea10e455f2f1ecbb,
         type: 3}
+      propertyPath: m_TagString
+      value: Terrain
+      objectReference: {fileID: 0}
+    - target: {fileID: -7383725084242248110, guid: a8ce1fd32e681644ea10e455f2f1ecbb,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -22349,6 +22354,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1088588805575254510, guid: a8ce1fd32e681644ea10e455f2f1ecbb,
         type: 3}
+      propertyPath: m_TagString
+      value: Terrain
+      objectReference: {fileID: 0}
+    - target: {fileID: 1088588805575254510, guid: a8ce1fd32e681644ea10e455f2f1ecbb,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -23162,6 +23172,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 65ac7ca9a90e90b45904feb1d4cb17fa, type: 2}
+    - target: {fileID: 9017328541939089309, guid: a8ce1fd32e681644ea10e455f2f1ecbb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Terrain
+      objectReference: {fileID: 0}
     - target: {fileID: 9017328541939089309, guid: a8ce1fd32e681644ea10e455f2f1ecbb,
         type: 3}
       propertyPath: m_StaticEditorFlags

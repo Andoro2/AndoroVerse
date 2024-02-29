@@ -20,14 +20,12 @@ public class EnemyCannonFly : MonoBehaviour
     [SerializeField] private float m_ShootRange = 17.5f, m_AttackCD = 2.5f, m_AttackTimer;
     public float m_Heigth = 7.5f;
 
-    // Start is called before the first frame update
     void Start()
     {
         m_Player = GameObject.Find("Player").transform;
         m_AttackTimer = m_AttackCD;
     }
 
-    // Update is called once per frame
     void Update()
     {
         float DistanceToPlayer = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(m_Player.position.x, m_Player.position.z));
@@ -65,6 +63,13 @@ public class EnemyCannonFly : MonoBehaviour
 
         m_Cannon.transform.LookAt(m_Player.position);
 
+        if (Distance2Player >= m_MaxDistanceToPlayer)
+        {
+            Vector3 OffensiveDir = m_Player.position - transform.position;
+            transform.position += m_OffenseSpeed * Time.deltaTime * new Vector3(OffensiveDir.x, 0f, OffensiveDir.z).normalized;
+            m_AnimBody.SetBool("Moving", true);
+        }
+        /*
         if (Distance2Player <= m_MinDistanceToPlayer)
         {
             Vector3 RetreatDir = transform.position - m_Player.position;
@@ -77,6 +82,7 @@ public class EnemyCannonFly : MonoBehaviour
             transform.position += m_OffenseSpeed * Time.deltaTime * new Vector3(OffensiveDir.x, 0f, OffensiveDir.z).normalized;
             m_AnimBody.SetBool("Moving", true);
         }
+        */
     }
     void Shoot(float Distance2Player)
     {
@@ -85,7 +91,7 @@ public class EnemyCannonFly : MonoBehaviour
         {
             Instantiate(m_Bullet, m_ShootPoint.position, m_ShootPoint.rotation);
             m_AttackTimer = m_AttackCD;
-            //m_AnimBody.Play("disparo");
+
             m_AnimCannon.Play("Shoot");
         }
     }
@@ -93,23 +99,13 @@ public class EnemyCannonFly : MonoBehaviour
     {
         int LayerGround = LayerMask.GetMask("Terrain");
 
-        //Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, m_Heigth * 1.5f, LayerGround);
-
-        //Collider[] colliders = Physics.OverlapSphere(transform.position - new Vector3(0,m_Heigth,0), 1f, LayerGround);
-
         Debug.DrawRay(transform.position, -Vector3.up * m_Heigth, Color.red);
         if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, m_Heigth * 1.5f, LayerGround))
         {
             if (hit.distance > m_Heigth)
-            //if(colliders.Length > 0)
-            {
                 transform.position += m_VerticalSpeed * Time.deltaTime * -Vector3.up;
-            }
             else if (hit.distance < (m_Heigth - 0.5f))
-            //else if(colliders.Length == 0)
-            {
                 transform.position += m_VerticalSpeed * Time.deltaTime * Vector3.up;
-            }
         }
         else
         {

@@ -1757,34 +1757,27 @@ MonoBehaviour:
   ActiveWeapon: 0
   m_Target: {fileID: 1028209249638815422}
   m_InteractionPoint: {fileID: 4413757772326871296}
-  m_InteractRadius: 0.5
   m_InteractLayer:
     serializedVersion: 2
     m_Bits: 64
   m_InteractionText: {fileID: 7537048565318743370}
-  m_DashDistance: 5
-  m_DashTime: 0.2
-  m_DashCooldown: 1
-  m_DashSpeed: 70
-  MoveSpeed: 0
-  m_WalkSpeed: 20
-  m_RunSpeed: 40
+  m_WalkSpeed: 15
+  m_RunSpeed: 27.5
   gravity: -50
-  m_JumpForce: 200
-  m_JumpTime: 0.1
+  m_JumpForce: 150
+  m_JumpTime: 0.15
   m_AirTimeCounter: 0
-  maxJumps: 1
-  m_CoyoteTime: 0.5
-  groundCheck: {fileID: 483297483463178524}
-  groundLayer:
+  m_MaxJumps: 1
+  m_GroundCheck: {fileID: 483297483463178524}
+  m_GroundLayer:
     serializedVersion: 2
     m_Bits: 8
   bullet: {fileID: 1452448004292668825, guid: dbe1c0b8c9b337442a64cbd80c94ac39, type: 3}
   m_ComboTime: 2
   m_AttackCooldown: 0.2
-  m_GroundSlashCharge: 0
-  m_HeavyPressed: 0
+  m_RockPunchCD: 1.5
   m_ComboCount: 0
+  m_HeavyPressed: 0
   CanAttack: 1
   m_SlashVFXs:
   - SlashVFX: {fileID: 2946399947086633389}
@@ -1797,7 +1790,6 @@ MonoBehaviour:
     type: 3}
   m_GroundSlash: {fileID: 4484745934877485345, guid: 3621dc6b5ef1f39449c55aaa7ac4b477,
     type: 3}
-  m_AnimatorController: {fileID: 0}
   m_ActiveWeaponSprite: {fileID: 0}
   m_WalkConcreteSFX: {fileID: 8300000, guid: 418aef40fa98c49479d2c5261934540a, type: 3}
   m_WalkGrassSFX: {fileID: 8300000, guid: afa25ca281abed142949efaec34d18ec, type: 3}

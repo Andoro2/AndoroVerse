@@ -20,7 +20,7 @@ public class CharacterController : MonoBehaviour
 
     //INTERACTION
     public Transform m_InteractionPoint;
-    public float m_InteractRadius = 5f;
+    private float m_InteractRadius = 0.5f;
     public LayerMask m_InteractLayer;
     public TextMeshProUGUI m_InteractionText;
     private GameObject m_InteractObject;
@@ -28,38 +28,36 @@ public class CharacterController : MonoBehaviour
     //DASH
     private bool m_IsDashing = false;
     private float m_DashTimer = 0f,
-        m_DashCooldownTimer = 0f;
-    [SerializeField]
-    private float m_DashDistance = 5f,
+        m_DashCooldownTimer = 0f,
         m_DashTime = 0.2f,
         m_DashCooldown = 1f,
         m_DashSpeed = 10f;
 
-    private InputManager playerInputActions;
-    private Vector2 moveInput;
-    private Vector2 lookInput;
-    private Vector3 lookDirection, lastLookDirection, lastMoveDirection;
-    public float MoveSpeed, m_WalkSpeed = 5f, m_RunSpeed = 10f;
+    private InputManager m_PlayerInputActions;
+    private Vector2 m_MoveInput,
+        m_LookInput;
+    private Vector3 m_LookDir, m_LastLookDir, m_LastMoveDir;
+    private float MoveSpeed;
+    public float m_WalkSpeed = 5f, m_RunSpeed = 10f;
 
     private Vector3 m_VerticalVelocity;
     public float gravity = -9.81f;
 
     public float m_JumpForce = 3f, m_JumpTime = 2f, m_AirTimeCounter;
-    public int maxJumps = 1;
-    public float m_CoyoteTime = 0.5f;
-    private float m_CoyoteTimeCounter;
+    public int m_MaxJumps = 1;
+    private float m_CoyoteTime = 0.5f, m_CoyoteTimeCounter;
     private bool m_IsGrounded, m_IsJumping;
-    public Transform groundCheck;
-    public LayerMask groundLayer;
+    public Transform m_GroundCheck;
+    public LayerMask m_GroundLayer;
 
-    public GameObject bullet;
+    private Animator m_AnimatorController;
 
     [SerializeField] private float m_ComboTime = 2f, m_AttackCooldown = 0.2f;
-    private float m_ComboTimer;
-    public float m_GroundSlashCharge = 0f;
-    public bool m_HeavyPressed = false;
+    private float m_ComboTimer, m_GroundSlashCharge = 0f, m_RockPunchTimer = 0f,
+        m_FightingCoolDown = 10f, m_FightingCounter;
     [SerializeField] private int m_ComboCount = 0;
-    public bool CanAttack = false;
+    public float m_RockPunchCD = 2f;
+    public bool m_HeavyPressed = false, CanAttack = false;
 
     //WEAPONS POSITIONING
     private GameObject m_ShieldR, m_ShieldL,
@@ -69,41 +67,41 @@ public class CharacterController : MonoBehaviour
 
     //WEAPONS VFX
     public List<Slash> m_SlashVFXs;
-    public GameObject m_RockPunch, m_GroundSlash;
+    public GameObject m_Bullet, m_RockPunch, m_GroundSlash;
 
-    public Animator m_AnimatorController;
-    private float m_FightingCoolDown = 10f, m_FightingCounter;
-    private bool m_ScepterHeaving = false;
-
+    // Weapon sprite on use visible on the GUI
     public GameObject m_ActiveWeaponSprite;
     private GameObject m_SwordSprite, m_ScepterSprite, m_ShieldsSprite;
 
     //SOUND FX
     private AudioSource m_PlayerAS, m_DashAS, m_MovementAS, m_MeleAttackAS, m_ScepterAS;
     public AudioClip m_WalkConcreteSFX, m_WalkGrassSFX, m_WalkWoodSFX,
-        m_DrawSwordSFX, m_SwordSwoosh1, m_SwordSwoosh2, m_MetallicImpactSFX, m_FlameThrowerIgniteSFX, m_FlameThrowerFireSFX;
+        m_DrawSwordSFX, m_SwordSwoosh1, m_SwordSwoosh2, m_MetallicImpactSFX,
+        m_FlameThrowerIgniteSFX, m_FlameThrowerFireSFX;
 
     Skill Escudos;
     private void Awake()
     {
-        playerInputActions = new InputManager();
+        m_PlayerInputActions = new InputManager();
     }
     private void OnEnable()
     {
-        playerInputActions.Enable();
+        m_PlayerInputActions.Enable();
 
-        playerInputActions.Actions.RangeAttack.performed += OnHeavyPerformed;
-        playerInputActions.Actions.RangeAttack.canceled += OnHeavyCanceled;
+        m_PlayerInputActions.Actions.RangeAttack.performed += OnHeavyPerformed;
+        m_PlayerInputActions.Actions.RangeAttack.canceled += OnHeavyCanceled;
     }
     private void OnDisable()
     {
-        playerInputActions.Disable();
+        m_PlayerInputActions.Disable();
 
-        playerInputActions.Actions.RangeAttack.performed -= OnHeavyPerformed;
-        playerInputActions.Actions.RangeAttack.canceled -= OnHeavyCanceled;
+        m_PlayerInputActions.Actions.RangeAttack.performed -= OnHeavyPerformed;
+        m_PlayerInputActions.Actions.RangeAttack.canceled -= OnHeavyCanceled;
     }
     private void Start()
     {
+        DetectInputDevice();
+
         string LeftShieldPath = "Body/Model/rig/c_pos/c_traj/c_root_master.x/c_spine_01.x/c_spine_02.x/c_spine_03.x/" +
             "c_arm_fk.l/c_forearm_fk.l/forearm_fk.l/LeftShield/";
         string RightShieldPath = "Body/Model/rig/c_pos/c_traj/c_root_master.x/c_spine_01.x/c_spine_02.x/c_spine_03.x/" +
@@ -132,8 +130,6 @@ public class CharacterController : MonoBehaviour
 
         m_SwordBoneDrawn = transform.Find(ScepterPath + "/SwordDrawHolder").gameObject;
 
-        DetectInputDevice();
-
         m_AnimatorController = transform.Find("Body/Model").gameObject.GetComponent<Animator>();
         m_FightingCounter = 0f;
 
@@ -156,11 +152,14 @@ public class CharacterController : MonoBehaviour
         {
             if (Habilidad.SkillName == "Shields") Escudos = Habilidad;
         }
+
+        m_RockPunchTimer = m_RockPunchCD;
     }
     private void Update()
     {
         m_Scepter.gameObject.transform.localScale = new Vector3(1, 1, 1);
-        m_IsGrounded = Physics.CheckSphere(groundCheck.position, 0.25f, groundLayer);
+        m_IsGrounded = Physics.CheckSphere(m_GroundCheck.position, 0.25f, m_GroundLayer);
+        if (m_RockPunchTimer> 0f) m_RockPunchTimer -= Time.deltaTime;
 
         GameObject[] m_Dialogues = GameObject.FindGameObjectsWithTag("TextBox");
         if (m_Dialogues.Any(TextBox => TextBox.activeSelf))
@@ -220,10 +219,13 @@ public class CharacterController : MonoBehaviour
 
             m_ShieldR.gameObject.SetActive(true);
         }
+
+        if (MainScript.PlayerLifePoints <= 0)
+            Death();
     }
     private void Interact()
     {
-        if (playerInputActions.Actions.Interaction.triggered)
+        if (m_PlayerInputActions.Actions.Interaction.triggered)
         {
             if (m_InteractObject.GetComponent<InteractionType>().IsDialogue())
             {
@@ -236,8 +238,6 @@ public class CharacterController : MonoBehaviour
                 }
                 else
                 {
-                    //CharState = CharStates.Talking;
-                    //CanAttack = true;
                     if (m_InteractObject.GetComponent<DialogueSecondOption>().m_Follow)
                     {
                         m_InteractObject.gameObject.transform.parent = gameObject.transform;
@@ -247,32 +247,22 @@ public class CharacterController : MonoBehaviour
             }
 
             else if (m_InteractObject.GetComponent<InteractionType>().IsPickUpOrDropDown())
-            {
                 m_InteractObject.GetComponent<PickOrDrop>().PickOrDropObject();
-            }
 
             else if (m_InteractObject.GetComponent<InteractionType>().IsCollectible())
-            {
                 m_InteractObject.GetComponent<GetCollectible>().AcquireCollectible();
-            }
 
             else if (m_InteractObject.GetComponent<InteractionType>().IsGetIn())
-            {
                 m_InteractObject.GetComponent<GetIn>().LoadScene();
-            }
 
             else if (m_InteractObject.GetComponent<InteractionType>().IsObserve())
             {
                 m_InteractObject.GetComponent<Observe>().InteractionManager();
 
                 if (!m_InteractObject.GetComponent<Observe>().m_CanMove)
-                {
                     CharState = CharStates.Interacting;
-                }
                 else
-                {
                     CharState = CharStates.Moving;
-                }
             }
         }
     }
@@ -405,7 +395,7 @@ public class CharacterController : MonoBehaviour
             switch (ActiveWeapon)
             {
                 case Weapons.Scepter:
-                    if (playerInputActions.Actions.RangeAttack.ReadValue<float>() != 0f)
+                    if (m_PlayerInputActions.Actions.RangeAttack.ReadValue<float>() != 0f)
                     {
                         if (ScepterHeavy.gameObject.activeSelf == false)
                         {
@@ -425,10 +415,12 @@ public class CharacterController : MonoBehaviour
                     else m_ScepterAS.loop = false;
                     break;
                 case Weapons.Shields:
-                    if (playerInputActions.Actions.RangeAttack.triggered && m_IsGrounded)
+                    if (m_PlayerInputActions.Actions.RangeAttack.triggered && m_IsGrounded
+                        && m_RockPunchTimer <= 0f)
                     {
                         GameObject RockPunchVFX = Instantiate(m_RockPunch, transform.position, transform.rotation);
                         RockPunchVFX.transform.parent = null;
+                        m_RockPunchTimer = m_RockPunchCD;
                     }
                     break;
                 case Weapons.Sword:
@@ -465,9 +457,7 @@ public class CharacterController : MonoBehaviour
     private void OnHeavyPerformed(InputAction.CallbackContext context)
     {
         if (context.performed && CanAttack)
-        {
             m_HeavyPressed = true;
-        }
     }
     private void OnHeavyCanceled(InputAction.CallbackContext context)
     {
@@ -486,32 +476,30 @@ public class CharacterController : MonoBehaviour
             m_GroundSlashCharge = 0f;
             m_HeavyPressed = false;
             m_AnimatorController.SetBool("SwordHeavyLoading", false);
-            Debug.Log("Soltado");
         }
         CharState = CharStates.Moving;
     }
     private float m_QuickAttackCD = 0.5f;
     private void QuickAttackCombo()
     {
-        if (m_ComboTimer > 0) m_ComboTimer -= Time.deltaTime;
-        else m_ComboCount = 0;
+        if (m_ComboTimer > 0)
+            m_ComboTimer -= Time.deltaTime;
+        else
+            m_ComboCount = 0;
 
-        if (m_QuickAttackCD > 0) m_QuickAttackCD -= Time.deltaTime;
+        if (m_QuickAttackCD > 0)
+            m_QuickAttackCD -= Time.deltaTime;
 
-        if (playerInputActions.Actions.QuickAttack.triggered && CanAttack && m_QuickAttackCD <= 0f)
+        if (m_PlayerInputActions.Actions.QuickAttack.triggered && CanAttack && m_QuickAttackCD <= 0f)
         {
             if(ActiveWeapon != Weapons.Scepter && ActiveWeapon != Weapons.Weaponless)
-            {
                 m_MeleAttackAS.Play();
-            }
 
             switch (m_ComboCount)
             {
                 case 0:
                     if(ActiveWeapon != Weapons.Scepter)
-                    {
                         m_ComboCount++;
-                    }
                     
                     if(ActiveWeapon == Weapons.Sword)
                     {
@@ -520,7 +508,8 @@ public class CharacterController : MonoBehaviour
                     }
                     else if (ActiveWeapon == Weapons.Shields)
                     {
-                        StartCoroutine("PunchHitBox", this.gameObject.transform.Find("Body").Find("Weapons").Find("Shields").gameObject);
+                        StartCoroutine("PunchHitBox", this.gameObject.transform.Find("Body")
+                            .Find("Weapons").Find("Shields").gameObject);
                     }
 
                     if (m_AnimatorController.GetBool("Fighting") && m_AnimatorController.GetBool("Sword"))
@@ -528,7 +517,8 @@ public class CharacterController : MonoBehaviour
                         StartCoroutine("DrawSword", 0.3f);
                     }
 
-                    if(ActiveWeapon == Weapons.Scepter && !transform.Find("Body/Weapons/ScepterShock").gameObject.activeSelf)
+                    if(ActiveWeapon == Weapons.Scepter && !transform.Find("Body/Weapons/ScepterShock")
+                        .gameObject.activeSelf)
                     {
                         StartCoroutine("ScepterStomp");
                     }
@@ -610,38 +600,17 @@ public class CharacterController : MonoBehaviour
     private void Shoot()
     {
         if(m_ShootTimer > 0f)
-        {
             m_ShootTimer -= Time.deltaTime;
-        }
-        if(playerInputActions.Actions.HeavyAttack.triggered && m_ShootTimer <= 0f && CanAttack && ActiveWeapon == Weapons.Scepter)
+
+        if(m_PlayerInputActions.Actions.HeavyAttack.triggered && m_ShootTimer <= 0f && CanAttack && ActiveWeapon == Weapons.Scepter)
         {
-            Instantiate(bullet, m_Target.position, transform.rotation);
+            Instantiate(m_Bullet, m_Target.position, transform.rotation);
             m_AnimatorController.SetTrigger("Range");
             m_AnimatorController.SetBool("Fighting", true);
             m_FightingCounter = m_FightingCoolDown;
 
             m_ShootTimer = m_ShootCooldown;
-            /*if (moveInput.magnitude > 0.1f)
-            {
-                Instantiate(bullet, m_Target.position, transform.rotation);
-                m_AnimatorController.SetTrigger("Range");
-                m_AnimatorController.SetBool("Fighting", true);
-                m_FightingCounter = m_FightingCoolDown;
-
-                m_ShootTimer = m_ShootCooldown;
-            }
-            else if (moveInput.magnitude < 0.1f)
-            {
-                Instantiate(bullet, m_Target.position, transform.rotation);
-                m_AnimatorController.SetTrigger("Range");
-                m_AnimatorController.SetBool("Fighting", true);
-                m_FightingCounter = m_FightingCoolDown;
-
-                m_ShootTimer = m_ShootCooldown;
-            }*/
         }
-        
-
     }
     private void SwitchWeapon()
     {
@@ -669,11 +638,11 @@ public class CharacterController : MonoBehaviour
                 break;
         }
 
-        if (playerInputActions.Actions.WeaponOne.triggered && CheckWeapon("Sword")) //SWORD
+        if (m_PlayerInputActions.Actions.WeaponOne.triggered && CheckWeapon("Sword")) //SWORD
         {
             StartCoroutine("DrawSword", 1.2f);
             ActiveWeapon = Weapons.Sword;
-            //m_Sword.gameObject.transform.SetParent(m_SwordBoneDrawn.transform);
+
             m_FightingCounter = m_FightingCoolDown;
             switch (ActiveWeapon)
             {
@@ -694,7 +663,7 @@ public class CharacterController : MonoBehaviour
             m_AnimatorController.SetBool("FromSword", true);
         }
 
-        if (playerInputActions.Actions.WeaponTwo.triggered && CheckWeapon("Scepter")) //SCEPTER
+        if (m_PlayerInputActions.Actions.WeaponTwo.triggered && CheckWeapon("Scepter")) //SCEPTER
         {
             ActiveWeapon = Weapons.Scepter;
             m_FightingCounter = m_FightingCoolDown;
@@ -706,14 +675,13 @@ public class CharacterController : MonoBehaviour
                 case Weapons.Sword:
                     m_AnimatorController.SetTrigger("WeaponChanging");
                     StartCoroutine("SaveSword");
-                    //m_Sword.gameObject.transform.SetParent(m_SwordBoneSaved.transform);
                     break;
             }
             m_AnimatorController.SetTrigger("DrawScepter");
             m_AnimatorController.SetBool("FromSword", false);
         }
 
-        if (playerInputActions.Actions.WeaponThree.triggered && CheckWeapon("Shields")) //SHIELDS
+        if (m_PlayerInputActions.Actions.WeaponThree.triggered && CheckWeapon("Shields")) //SHIELDS
         {
             m_FightingCounter = m_FightingCoolDown;
             switch (ActiveWeapon)
@@ -723,7 +691,6 @@ public class CharacterController : MonoBehaviour
                 case Weapons.Sword:
                     m_AnimatorController.SetTrigger("WeaponChanging");
                     StartCoroutine("SaveSword");
-                    //m_Sword.gameObject.transform.SetParent(m_SwordBoneSaved.transform);
                     break;
                 case Weapons.Scepter:
                     if (m_Scepter.activeSelf)
@@ -751,10 +718,8 @@ public class CharacterController : MonoBehaviour
                         m_ShieldLSaved.SetActive(true);
                     }
                     m_Scepter.SetActive(true);
-                    //m_Scepter.gameObject.transform.localScale = new Vector3(1, 1, 1);
 
                     StartCoroutine("SaveSword");
-                    //m_Sword.gameObject.transform.SetParent(m_SwordBoneSaved.transform);
 
                     m_AnimatorController.SetBool("Shields", false);
                     m_AnimatorController.SetBool("Sword", false);
@@ -768,13 +733,9 @@ public class CharacterController : MonoBehaviour
                     m_ShieldLSaved.SetActive(false);
 
                     if (m_Scepter.activeSelf)
-                    {
                         m_Scepter.GetComponent<ScepterWAnim>().ScepterSave();
-                    }
-                    //m_Scepter.SetActive(false);
 
                     StartCoroutine("SaveSword");
-                    //m_Sword.gameObject.transform.SetParent(m_SwordBoneSaved.transform);
 
                     m_AnimatorController.SetBool("Shields", true);
                     m_AnimatorController.SetBool("Sword", false);
@@ -782,7 +743,7 @@ public class CharacterController : MonoBehaviour
 
                     break;
                 case Weapons.Sword:
-                if (CheckWeapon("Shields"))
+                    if (CheckWeapon("Shields"))
                     {
                         m_ShieldRDrawn.SetActive(false);
                         m_ShieldLDrawn.SetActive(false);
@@ -791,13 +752,9 @@ public class CharacterController : MonoBehaviour
                     }
 
                     if (m_Scepter.activeSelf)
-                    {
                         m_Scepter.GetComponent<ScepterWAnim>().ScepterSave();
-                    }
-                    //m_Scepter.SetActive(false);
 
                     StartCoroutine("DrawSword", 1.2f);
-                    //m_Sword.gameObject.transform.SetParent(m_SwordBoneDrawn.transform);
 
                     m_AnimatorController.SetBool("Shields", false);
                     m_AnimatorController.SetBool("Sword", true);
@@ -817,7 +774,6 @@ public class CharacterController : MonoBehaviour
                     {
                         m_Scepter.GetComponent<ScepterWAnim>().ScepterSave();
                     }
-                    //m_Scepter.SetActive(false);
 
                     m_AnimatorController.SetBool("Scepter", false);
                     m_AnimatorController.SetBool("Shields", false);
@@ -825,7 +781,6 @@ public class CharacterController : MonoBehaviour
                     break;
             }
         }
-
 
         m_Sword.transform.localPosition = Vector3.zero;
         m_Sword.transform.localRotation = new Quaternion(0, 0, 0, 1);
@@ -852,23 +807,15 @@ public class CharacterController : MonoBehaviour
         for (int i = 0; i < m_Inventario.m_Skills.Count; i++)
         {
             if(m_Inventario.m_Skills[i].SkillName == WeaponName)
-            {
                 HasSkill = m_Inventario.m_Skills[i].Available;
-            }
             if (HasSkill)
-            {
                 break;
-            }
         }
 
-        if (HasSkill)
-        {
+        if (HasSkill) 
             return true;
-        }
         else
-        {
             return false;
-        }
     }
     private void Jump()
     {
@@ -894,7 +841,7 @@ public class CharacterController : MonoBehaviour
                 m_CoyoteTimeCounter -= Time.deltaTime;
             }
 
-            if (m_CoyoteTimeCounter > 0f && playerInputActions.Movement.Jump.triggered)
+            if (m_CoyoteTimeCounter > 0f && m_PlayerInputActions.Movement.Jump.triggered)
             {
                 m_AnimatorController.SetTrigger("Jump");
                 m_AnimatorController.SetBool("Grounded", false);
@@ -903,7 +850,7 @@ public class CharacterController : MonoBehaviour
                 m_AirTimeCounter = m_JumpTime;
             }
 
-            if (playerInputActions.Movement.Jump.ReadValue<float>() != 0 && m_Controller.velocity.y > 0f)
+            if (m_PlayerInputActions.Movement.Jump.ReadValue<float>() != 0 && m_Controller.velocity.y > 0f)
             {
                 m_AnimatorController.SetBool("Grounded", false);
                 if (m_AirTimeCounter > 0 && m_IsJumping)
@@ -921,7 +868,7 @@ public class CharacterController : MonoBehaviour
                 }
             }
 
-            if (playerInputActions.Movement.Jump.ReadValue<float>() == 0)
+            if (m_PlayerInputActions.Movement.Jump.ReadValue<float>() == 0)
             {
                 if (m_IsJumping)
                 {
@@ -935,7 +882,7 @@ public class CharacterController : MonoBehaviour
     }
     private void Move()
     {
-        if (m_IsGrounded && playerInputActions.Movement.Jump.ReadValue<float>() == 0)
+        if (m_IsGrounded && m_PlayerInputActions.Movement.Jump.ReadValue<float>() == 0)
         {
             m_VerticalVelocity.y = -1f;
         }
@@ -944,21 +891,18 @@ public class CharacterController : MonoBehaviour
             m_VerticalVelocity.y += gravity * Time.deltaTime;
         }
 
-        
-        //controller.Move(velocity * Time.deltaTime);
-        Vector3 moveDirection = new(moveInput.x, 0f, moveInput.y);
+        Vector3 moveDirection = new(m_MoveInput.x, 0f, m_MoveInput.y);
         moveDirection = MoveSpeed * Time.deltaTime * moveDirection.normalized;
         moveDirection.y = m_VerticalVelocity.y * Time.deltaTime;
-        //transform.position += moveDirection;
 
-        if(moveInput.magnitude != 0)
+        if(m_MoveInput.magnitude != 0)
         {
             m_AnimatorController.SetBool("Walking", true);
 
             m_MovementAS.clip = m_WalkWoodSFX;
             if(!m_MovementAS.isPlaying) m_MovementAS.Play();
 
-            if (playerInputActions.Movement.Run.triggered)
+            if (m_PlayerInputActions.Movement.Run.triggered)
             {
                 MoveSpeed = m_RunSpeed;
                 m_AnimatorController.SetBool("Troting", true);
@@ -976,20 +920,19 @@ public class CharacterController : MonoBehaviour
     }
     private void Look()
     {
-        //Vector3 
-        lookDirection = new Vector3(lookInput.x, 0f, lookInput.y);
+        m_LookDir = new Vector3(m_LookInput.x, 0f, m_LookInput.y);
 
-        Vector3 moveDirection = new(moveInput.x, 0f, moveInput.y);
+        Vector3 moveDirection = new(m_MoveInput.x, 0f, m_MoveInput.y);
         moveDirection = MoveSpeed * Time.deltaTime * moveDirection.normalized;
 
-        if (lookDirection.magnitude != 0f)
+        if (m_LookDir.magnitude != 0f)
         {
-            transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
+            transform.rotation = Quaternion.LookRotation(m_LookDir, Vector3.up);
 
             moveDirection.Normalize();
-            lookDirection.Normalize();
+            m_LookDir.Normalize();
 
-            float angle = Vector3.Angle(moveDirection, lookDirection);
+            float angle = Vector3.Angle(moveDirection, m_LookDir);
             bool movingBackwards = (angle > 90);
 
             if (movingBackwards)
@@ -1001,10 +944,9 @@ public class CharacterController : MonoBehaviour
                 m_AnimatorController.SetBool("Backwards", false);
             }
 
-
-            lastLookDirection = lookDirection;
+            m_LastLookDir = m_LookDir;
         }
-        else //lookDirection.magnitude == 0f
+        else
         {
             m_AnimatorController.SetBool("Backwards", false);
 
@@ -1012,7 +954,6 @@ public class CharacterController : MonoBehaviour
             {
                 transform.rotation = Quaternion.LookRotation(moveDirection, Vector3.up);
             }
-
         }
     }
     private void Dash()
@@ -1030,11 +971,11 @@ public class CharacterController : MonoBehaviour
         }
         if (!m_IsDashing && m_DashCooldownTimer <= 0f && DashAvailable)
         {
-            if (moveInput.magnitude > 0.1f && playerInputActions.Movement.Dash.triggered)
+            if (m_MoveInput.magnitude > 0.1f && m_PlayerInputActions.Movement.Dash.triggered)
             {
-                StartCoroutine(PerformDash(moveInput));
+                StartCoroutine(PerformDash(m_MoveInput));
             }
-            else if (moveInput.magnitude < 0.1f && playerInputActions.Movement.Dash.triggered) //lookInput.magnitude > 0.1f 
+            else if (m_MoveInput.magnitude < 0.1f && m_PlayerInputActions.Movement.Dash.triggered)
             {
                 Vector3 targetDir = m_Target.position - transform.position;
                 Vector2 dashDir = new(targetDir.x, targetDir.z);
@@ -1059,12 +1000,11 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    //DASH FUNCTION
+    //DASH
     private SkinnedMeshRenderer[] m_SkinnedMeshRenderers;
     private GameObject[] m_WeaponsArray;
-    private SkinnedMeshRenderer[] m_SkinnedMeshRenderersManual;
     public Material m_DashMaterial;
-    private IEnumerator PerformDash(Vector2 dashDirection)
+    private IEnumerator PerformDash(Vector2 DashDir)
     {
         m_IsJumping = false;
         m_AirTimeCounter = 0f;
@@ -1074,27 +1014,26 @@ public class CharacterController : MonoBehaviour
 
         m_DashAS.Play();
 
-        float elapsed = 0f;
-        //Vector3 startPosition = transform.position;
-        Vector3 dashDir = new(dashDirection.x, 0f, dashDirection.y);
-        //Vector3 dashPosition = transform.position + endPos.normalized * dashDistance;
+        float Elapsed = 0f;
 
-        while (elapsed < m_DashTime)
+        Vector3 dashDir = new(DashDir.x, 0f, DashDir.y);
+
+        while (Elapsed < m_DashTime)
         {
             if (m_SkinnedMeshRenderers == null)
             {
                 m_SkinnedMeshRenderers = transform.Find("Body/Model").gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
             }
 
-            switch (ActiveWeapon)
+            switch (ActiveWeapon) // Collect 3D meshes to doplicat with the VFX
             {
                 case Weapons.Scepter:
                     m_WeaponsArray = new GameObject[]
                     {
-                            m_Sword.gameObject,//.GetComponent<Mesh>(),
-                            m_ShieldLSaved.gameObject,//GetComponent<Mesh>(),
-                            m_ShieldRSaved.gameObject,//GetComponent<Mesh>(),
-                            m_Scepter.gameObject.transform.GetChild(0).gameObject//GetComponent<Mesh>()
+                            m_Sword.gameObject,
+                            m_ShieldLSaved.gameObject,
+                            m_ShieldRSaved.gameObject,
+                            m_Scepter.gameObject.transform.GetChild(0).gameObject
                     };
                     break;
                 case Weapons.Shields:
@@ -1102,20 +1041,20 @@ public class CharacterController : MonoBehaviour
                     {
                         m_WeaponsArray = new GameObject[]
                         {
-                            m_Sword.gameObject,//GetComponent<Mesh>(),
-                            m_ShieldLDrawn.transform.GetChild(0).gameObject,//GetComponent<Mesh>(),
-                            m_ShieldLDrawn.transform.GetChild(1).gameObject,//GetComponent<Mesh>(),
-                            m_ShieldRDrawn.transform.GetChild(0).gameObject,//GetComponent<Mesh>(),
-                            m_ShieldRDrawn.transform.GetChild(1).gameObject//GetComponent<Mesh>()
+                            m_Sword.gameObject,
+                            m_ShieldLDrawn.transform.GetChild(0).gameObject,
+                            m_ShieldLDrawn.transform.GetChild(1).gameObject,
+                            m_ShieldRDrawn.transform.GetChild(0).gameObject,
+                            m_ShieldRDrawn.transform.GetChild(1).gameObject
                         };
                     }
                     else if (m_ShieldLSaved.activeSelf || m_ShieldRSaved.activeSelf)
                     {
                         m_WeaponsArray = new GameObject[]
                         {
-                            m_Sword.gameObject,//GetComponent<Mesh>(),
-                            m_ShieldLSaved.gameObject,//GetComponent<Mesh>(),
-                            m_ShieldRSaved.gameObject//GetComponent<Mesh>(),
+                            m_Sword.gameObject,
+                            m_ShieldLSaved.gameObject,
+                            m_ShieldRSaved.gameObject
                         };
                     }
 
@@ -1123,18 +1062,18 @@ public class CharacterController : MonoBehaviour
                 case Weapons.Sword:
                     m_WeaponsArray = new GameObject[]
                         {
-                        m_Sword.gameObject,//GetComponent<Mesh>(),
-                        m_ShieldLSaved.gameObject,//GetComponent<Mesh>(),
-                        m_ShieldRSaved.gameObject//GetComponent<Mesh>(),
+                        m_Sword.gameObject,
+                        m_ShieldLSaved.gameObject,
+                        m_ShieldRSaved.gameObject
                         };
 
                     break;
                 case Weapons.Weaponless:
                     m_WeaponsArray = new GameObject[]
                      {
-                        m_Sword.gameObject,//GetComponent<Mesh>(),
-                        m_ShieldLSaved.gameObject,//GetComponent<Mesh>(),
-                        m_ShieldRSaved.gameObject//GetComponent<Mesh>(),
+                        m_Sword.gameObject,
+                        m_ShieldLSaved.gameObject,
+                        m_ShieldRSaved.gameObject
                      };
 
                     break;
@@ -1143,7 +1082,8 @@ public class CharacterController : MonoBehaviour
             for (int i = 0; i < m_SkinnedMeshRenderers.Length; i++)
             {
                 GameObject GObj = new GameObject();
-                GObj.transform.SetPositionAndRotation(m_SkinnedMeshRenderers[i].gameObject.transform.position, m_SkinnedMeshRenderers[i].gameObject.transform.rotation);
+                GObj.transform.SetPositionAndRotation(m_SkinnedMeshRenderers[i].gameObject.transform.position,
+                    m_SkinnedMeshRenderers[i].gameObject.transform.rotation);
 
                 MeshRenderer MRenderer = GObj.AddComponent<MeshRenderer>();
                 MeshFilter MFilter = GObj.AddComponent<MeshFilter>();
@@ -1167,7 +1107,8 @@ public class CharacterController : MonoBehaviour
 
                 if (MRenderer != null)
                 {
-                    GameObject GObj = Instantiate(m_WeaponsArray[i], m_WeaponsArray[i].transform.position, m_WeaponsArray[i].transform.rotation);
+                    GameObject GObj = Instantiate(m_WeaponsArray[i], m_WeaponsArray[i].transform.position,
+                        m_WeaponsArray[i].transform.rotation);
                     GObj.transform.localScale = new Vector3(100f, 100f, 100f);
 
                     MeshRenderer GObjMRenderer = GObj.GetComponent<MeshRenderer>();
@@ -1185,7 +1126,7 @@ public class CharacterController : MonoBehaviour
                 }
             }
 
-            elapsed += Time.deltaTime;
+            Elapsed += Time.deltaTime;
 
             m_Controller.Move(m_DashSpeed * Time.deltaTime * dashDir);
 
@@ -1215,46 +1156,44 @@ public class CharacterController : MonoBehaviour
     }
     private void DetectInputDevice()
     {
-        string[] joystickNames = Input.GetJoystickNames();
+        string[] JoystickNames = Input.GetJoystickNames();
 
-        if (joystickNames.Length == 0 || joystickNames[0] == "")
+        if (JoystickNames.Length == 0 || JoystickNames[0] == "") // Keyboard - mouse
         {
-            // keyboard and mouse input
-            playerInputActions.Movement.Move.performed += ctx => {
-                Vector2 input = ctx.ReadValue<Vector2>();
-                input = input.normalized;
-                moveInput = new Vector2(input.x, input.y);
+            m_PlayerInputActions.Movement.Move.performed += ctx => {
+                Vector2 Input = ctx.ReadValue<Vector2>();
+                Input = Input.normalized;
+                m_MoveInput = new Vector2(Input.x, Input.y);
             };
-            playerInputActions.Movement.Move.canceled += ctx => {
-                moveInput = Vector2.zero;
+            m_PlayerInputActions.Movement.Move.canceled += ctx => {
+                m_MoveInput = Vector2.zero;
             };
 
-            playerInputActions.Movement.Aim.performed += ctx => {
-                Vector2 input = ctx.ReadValue<Vector2>();
-                input = input.normalized;
-                lookInput = new Vector2(input.x, input.y);
+            m_PlayerInputActions.Movement.Aim.performed += ctx => {
+                Vector2 Input = ctx.ReadValue<Vector2>();
+                Input = Input.normalized;
+                m_LookInput = new Vector2(Input.x, Input.y);
             };
-            playerInputActions.Movement.Aim.canceled += ctx => {
-                lookInput = Vector2.zero;
+            m_PlayerInputActions.Movement.Aim.canceled += ctx => {
+                m_LookInput = Vector2.zero;
             };
         }
-        else
+        else // Gamepad
         {
-            // gamepad input
-            playerInputActions.Movement.Move.performed += ctx => {
-                Vector2 input = ctx.ReadValue<Vector2>();
-                moveInput = new Vector2(input.x, input.y);
+            m_PlayerInputActions.Movement.Move.performed += ctx => {
+                Vector2 Input = ctx.ReadValue<Vector2>();
+                m_MoveInput = new Vector2(Input.x, Input.y);
             };
-            playerInputActions.Movement.Move.canceled += ctx => {
-                moveInput = Vector2.zero;
+            m_PlayerInputActions.Movement.Move.canceled += ctx => {
+                m_MoveInput = Vector2.zero;
             };
 
-            playerInputActions.Movement.Aim.performed += ctx => {
-                Vector2 input = ctx.ReadValue<Vector2>();
-                lookInput = new Vector2(input.x, input.y);
+            m_PlayerInputActions.Movement.Aim.performed += ctx => {
+                Vector2 Input = ctx.ReadValue<Vector2>();
+                m_LookInput = new Vector2(Input.x, Input.y);
             };
-            playerInputActions.Movement.Aim.canceled += ctx => {
-                lookInput = Vector2.zero;
+            m_PlayerInputActions.Movement.Aim.canceled += ctx => {
+                m_LookInput = Vector2.zero;
             };
         }
     }
@@ -1264,30 +1203,6 @@ public class CharacterController : MonoBehaviour
         {
             CharState = CharStates.Dead;
             m_AnimatorController.SetTrigger("Death");
-            
-            transform.GetComponent<CharacterController>().enabled = false;
         }
     }
-    /*void OnGUI()
-    {
-        // Configuración del estilo del cuadro de texto
-        GUIStyle estiloTexto = new GUIStyle();
-        estiloTexto.fontSize = 150;
-        estiloTexto.normal.textColor = Color.white;
-
-        // Posición y tamaño del cuadro de texto
-        Rect rectanguloTexto = new Rect(Screen.width / 2, 500, 200, 50);
-        if(CharState == CharStates.Moving)
-        {
-            GUI.Label(rectanguloTexto, "Moving", estiloTexto);
-        }
-        else if (CharState == CharStates.Interacting)
-        {
-            GUI.Label(rectanguloTexto, "Interacting", estiloTexto);
-        }
-        else if (CharState == CharStates.Talking)
-        {
-            GUI.Label(rectanguloTexto, "Talking", estiloTexto);
-        }
-    }*/
 }
