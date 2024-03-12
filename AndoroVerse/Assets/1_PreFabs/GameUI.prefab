@@ -6382,7 +6382,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Guardar y salir al men\xFA principal"
+  m_text: "Salir al men\xFA principal"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e9643083e0211744abb17d5c9f0697e0, type: 2}
   m_sharedMaterial: {fileID: 932269467083290504, guid: e9643083e0211744abb17d5c9f0697e0,

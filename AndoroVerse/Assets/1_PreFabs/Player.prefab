@@ -1761,10 +1761,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   m_InteractionText: {fileID: 7537048565318743370}
+  m_DashTimer: 0
+  m_DashCooldownTimer: 0
+  m_DashTime: 0.25
+  m_DashCooldown: 1
+  m_DashSpeed: 60
   m_WalkSpeed: 15
   m_RunSpeed: 27.5
   gravity: -50
-  m_JumpForce: 150
+  m_JumpForce: 50
   m_JumpTime: 0.15
   m_AirTimeCounter: 0
   m_MaxJumps: 1
@@ -1772,11 +1777,10 @@ MonoBehaviour:
   m_GroundLayer:
     serializedVersion: 2
     m_Bits: 8
-  bullet: {fileID: 1452448004292668825, guid: dbe1c0b8c9b337442a64cbd80c94ac39, type: 3}
   m_ComboTime: 2
   m_AttackCooldown: 0.2
-  m_RockPunchCD: 1.5
   m_ComboCount: 0
+  m_RockPunchCD: 1.5
   m_HeavyPressed: 0
   CanAttack: 1
   m_SlashVFXs:
@@ -1786,6 +1790,7 @@ MonoBehaviour:
     Delay: 0.25
   - SlashVFX: {fileID: 7249744673665031927}
     Delay: 0.25
+  m_Bullet: {fileID: 0}
   m_RockPunch: {fileID: 5034369203677437933, guid: ed3ac96550cf0d34d85040d21c4d8627,
     type: 3}
   m_GroundSlash: {fileID: 4484745934877485345, guid: 3621dc6b5ef1f39449c55aaa7ac4b477,

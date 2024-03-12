@@ -27,7 +27,7 @@ public class CharacterController : MonoBehaviour
 
     //DASH
     private bool m_IsDashing = false;
-    private float m_DashTimer = 0f,
+    public float m_DashTimer = 0f,
         m_DashCooldownTimer = 0f,
         m_DashTime = 0.2f,
         m_DashCooldown = 1f,

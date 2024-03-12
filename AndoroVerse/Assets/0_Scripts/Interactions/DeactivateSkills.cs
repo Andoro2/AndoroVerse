@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivateSkills : MonoBehaviour
+public class DeactivateSkills : MonoBehaviour
 {
     public string SkillToActivate;
 
     public void OnEnable()
     {
-        if (GameObject.FindWithTag("GameController") != null) ActivateSkill(SkillToActivate);
+        if(GameObject.FindWithTag("GameController") != null) ActivateSkill(SkillToActivate);
     }
     public void ActivateSkill(string AbilityName)
     {
@@ -16,7 +16,7 @@ public class ActivateSkills : MonoBehaviour
         {
             if (GameObject.FindWithTag("GameController").transform.GetComponent<Inventory>().m_Skills[i].SkillName == AbilityName)
             {
-                GameObject.FindWithTag("GameController").transform.GetComponent<Inventory>().m_Skills[i].Available = true;
+                GameObject.FindWithTag("GameController").transform.GetComponent<Inventory>().m_Skills[i].Available = false;
             }
         }
     }
